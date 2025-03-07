@@ -80,19 +80,49 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="projects">
-        <h1>My Projects</h1>
-        <div className="projects-container">
-          <div className="project">
-            <h2>Online Bank Website - "World Bank"</h2>
-            <p>Designed a full-fledged banking website with an LED-style bank name display.</p>
-          </div>
-          <div className="project">
-            <h2>OD Approval & Announcement System</h2>
-            <p>A web-based platform for students and faculty to manage OD requests and announcements.</p>
-          </div>
-        </div>
-      </section>
+<section id="projects" className="projects">
+  <h1>My Projects</h1>
+  <div className="projects-container">
+    
+    {/* Online Bank Website */}
+    <div className="project">
+      <h2>Online Bank Website - "World Bank"</h2>
+      <p>Designed a full-fledged banking website with an LED-style bank name display.</p>
+      <a href="https://github.com/SmithC05/online-bank-website" target="_blank" rel="noopener noreferrer">
+        🔗 View on GitHub
+      </a>
+    </div>
+
+    {/* OD Approval & Announcement System */}
+    <div className="project">
+      <h2>OD Approval & Announcement System</h2>
+      <p>A web-based platform for students and faculty to manage OD requests and announcements.</p>
+      <a href="https://github.com/SmithC05/od-approval-system" target="_blank" rel="noopener noreferrer">
+        🔗 View on GitHub
+      </a>
+    </div>
+
+    {/* Portfolio */}
+    <div className="project">
+      <h2>Portfolio Website</h2>
+      <p>My personal portfolio showcasing projects, skills, and achievements.</p>
+      <a href="https://github.com/SmithC05/portfolio" target="_blank" rel="noopener noreferrer">
+        🔗 View on GitHub
+      </a>
+    </div>
+
+    {/* MoCo Store */}
+    <div className="project">
+      <h2>MoCo Store</h2>
+      <p>An e-commerce web application for managing and selling products online.</p>
+      <a href="https://github.com/SmithC05/moco-store" target="_blank" rel="noopener noreferrer">
+        🔗 View on GitHub
+      </a>
+    </div>
+
+  </div>
+</section>
+
 
       {/* Contact Section */}
       <section id="contact" className="contact">

@@ -11,6 +11,7 @@ function Navbar() {
         <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
         <a href="#skills" onClick={() => setMenuOpen(false)}>Skills</a>
         <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+        <a href="#certificates">Certificates</a>
         <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
       </div>
       <button className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>

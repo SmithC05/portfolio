@@ -1,16 +1,63 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import profilePic from "./assets/profile.jpg"; // Front Image
 import backPic from "./assets/back-profile.jpg"; // Back Image (can be same or different)
+import cert1 from "./assets/c-certificate.jpg";
+import toefl1 from "./assets/toefl-certificate1.jpg";
+import toefl2 from "./assets/toefl-certificate2.jpg";
+import cybersecurity from "./assets/cybersecurity.jpg";
+import dataScience from "./assets/data-science.jpg";
+import iot from "./assets/iot.jpg";
+import modernAI from "./assets/modern-ai.jpg";
+import aiFundamentals from "./assets/ai-fundamentals.jpg";
+import symposium from "./assets/symposium-certificate.jpg";
+
+
 
 function App() {
   const [flipped, setFlipped] = useState(false);
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
+  const certificates = [
+    { title: "C Programming Certificate", image: cert1 },
+    { title: "TOEFL Certificate (Achievement)", image: toefl1 },
+    { title: "TOEFL Certificate (Official)", image: toefl2 },
+    { title: "Introduction to Cybersecurity", image: cybersecurity },
+    { title: "Introduction to Data Science", image: dataScience },
+    { title: "Introduction to IoT and Digital Transformation", image: iot },
+    { title: "Introduction to Modern AI", image: modernAI },
+    { title: "AI Fundamentals with IBM SkillsBuild", image: aiFundamentals },
+    { title: "Certificate of Recognition", image: symposium },];
+    const [formStatus, setFormStatus] = useState("");
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+    
+      fetch("https://formspree.io/f/movealqk", {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      })
+      .then((response) => {
+        if (response.ok) {
+          setFormStatus("Message sent successfully!");
+          e.target.reset();
+        } else {
+          setFormStatus("Failed to send message. Try again.");
+        }
+      })
+      .catch(() => setFormStatus("Error sending message."));
+    };
+    
 
   return (
     <div>
       <div className="marquee">
-  <p>🚀 Welcome to My Portfolio! | 🔥 Aspiring Software Engineer | 💻 Passionate about Web Development & Problem-Solving! | 🎯 Let's Connect!| mrsmithc49@gmail.com</p>
+  <p>🚀 Welcome to My Portfolio! | 🔥 Aspiring Software Engineer | 💻 Passionate about Web Development & Problem-Solving! | 🎯 Let's Connect!| mrsmithcit@gmail.com</p>
 </div>
 
       <Navbar />
@@ -124,15 +171,99 @@ function App() {
 </section>
 
 
-      {/* Contact Section */}
-      <section id="contact" className="contact">
-        <h1>Contact Me</h1>
-        <div className="contact-container">
-          <p>Email: <a href="mailto:mrsmithc49@gmail.com">mrsmithc49@gmail.com</a></p>
-          <p>LinkedIn: <a href="https://linkedin.com/in/smithc" target="_blank" rel="noopener noreferrer">Smith C</a></p>
-          <p>GitHub: <a href="https://github.com/SmithC05" target="_blank" rel="noopener noreferrer">SmithC05</a></p>
+
+   {/* Certificates Section */}
+   <section id="certificates" className="certificates">
+        <h1>My Certifications</h1>
+        <div className="certificates-container">
+          {certificates.map((cert, index) => (
+            <div key={index} className="certificate" onClick={() => setSelectedCertificate(cert.image)}>
+              <img src={cert.image} alt={cert.title} />
+              <h2>{cert.title}</h2>
+            </div>
+          ))}
         </div>
       </section>
+
+      {/* Modal for Full-Screen Certificate */}
+      {selectedCertificate && (
+        <div className="modal" onClick={() => setSelectedCertificate(null)}>
+          <div className="modal-content">
+            <span className="close" onClick={() => setSelectedCertificate(null)}>&times;</span>
+            <img src={selectedCertificate} alt="Full Certificate" />
+          </div>
+        </div>
+      )}
+
+
+
+   {/* Contact Section */}
+<section id="contact" className="contact">
+  <h1>Contact Me</h1>
+  <div className="contact-container">
+    
+    {/* Phone */}
+    <div className="contact-item">
+      <i className="fas fa-phone-alt"></i>
+      <p>+91 9361491329</p>
+    </div>
+
+    {/* Personal Email */}
+    <div className="contact-item">
+      <i className="fas fa-envelope"></i>
+      <p>
+        <a href="mailto:mrsmithcit@gmail.com">mrsmithcit@gmail.com</a>
+      </p>
+    </div>
+
+    {/* LinkedIn */}
+    <div className="contact-item">
+      <i className="fab fa-linkedin"></i>
+      <p>
+        <a href="https://linkedin.com/in/smithc" target="_blank" rel="noopener noreferrer">
+          Smith C
+        </a>
+      </p>
+    </div>
+
+    {/* GitHub */}
+    <div className="contact-item">
+      <i className="fab fa-github"></i>
+      <p>
+        <a href="https://github.com/SmithC05" target="_blank" rel="noopener noreferrer">
+          SmithC05
+        </a>
+      </p>
+    </div>
+
+    {/* Contact Form */}
+    <h2>Send Me a Message</h2>
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="email" name="email" placeholder="Your Email" required />
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+
+    {/* Feedback Section */}
+    <div className="feedback">
+      <h2>Feedback</h2>
+      <p>Have suggestions or improvements? Feel free to drop your feedback here!</p>
+      <textarea name="feedback" placeholder="Your Feedback"></textarea>
+      <button>Submit Feedback</button>
+    </div>
+
+  
+
+  
+
+     {/* Form Status Message */}
+     {formStatus && <p className="form-status">{formStatus}</p>}
+
+
+  </div>
+</section>
+
     </div>
   );
 }

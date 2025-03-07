@@ -169,36 +169,331 @@
 .project a:hover {
   background: #e6b800;
 }
-
-/* Contact Section */
-.contact {
+/* Certificates Section */
+.certificates {
   padding: 80px 50px;
-  background: #0a3d62;
+  background: #1a1a2e;
   color: white;
   text-align: center;
 }
 
-.contact h1 {
+.certificates h1 {
   font-size: 36px;
   margin-bottom: 20px;
   color: #ffcc00;
   text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.5);
 }
 
-.contact-container {
-  font-size: 20px;
-  line-height: 1.6;
+.certificates-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
 }
 
-.contact-container a {
-  color: #ffcc00;
-  text-decoration: none;
+/* Certificate Card */
+.certificate {
+  background: #0f3460;
+  padding: 20px;
+  border-radius: 10px;
+  width: 250px;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.certificate:hover {
+  transform: scale(1.05);
+}
+
+.certificate img {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+}
+
+.certificate img:hover {
+  transform: scale(1.1);
+}
+
+/* Modal for Full-Screen Certificate */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal img {
+  width: 100%;
+  height: auto;
+  max-width: 600px;  /* Ensures the full certificate is visible */
+  max-height: 90vh; /* Prevents overflow */
+  object-fit: contain; /* Ensures the whole image fits */
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.5);
+}
+
+/* Close Button */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 30px;
+  color: black;
+  cursor: pointer;
+  transition: 0.3s;
   font-weight: bold;
 }
 
-.contact-container a:hover {
-  text-decoration: underline;
+.close:hover {
+  color: #ffcc00;
 }
+
+
+/* Contact Section */
+.contact {
+  padding: 80px 50px;
+  background: linear-gradient(135deg, #1a1a2e, #0f3460);
+  color: white;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.contact h1 {
+  font-size: 38px;
+  margin-bottom: 20px;
+  color: #ffcc00;
+  text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.5);
+  animation: slideInDown 1s ease-in-out;
+}
+
+/* Contact Details in a Row */
+.contact-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 30px;
+  text-align: center;
+  width: 100%;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column; /* Stack icon above text */
+  align-items: center; /* Center icon and text */
+  justify-content: center; /* Keep centered */
+  gap: 8px;
+  font-size: 18px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 15px 25px;
+  border-radius: 10px;
+  transition: transform 0.3s ease-in-out, background 0.3s;
+  cursor: pointer;
+  min-width: 220px;
+  text-align: center;
+}
+
+/* Make sure the icons are centered and look good */
+.contact-item i {
+  font-size: 28px;
+  color: #ffcc00;
+}
+
+
+.contact-item:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
+
+.contact-item a,
+.contact-item p {
+  color: white;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.contact-item a:hover {
+  color: #ffcc00;
+}
+
+/* Form and Feedback Side by Side */
+.contact-form-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.contact-box {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.3);
+  animation: slideInUp 1s ease-in-out;
+}
+
+/* Contact Form & Feedback */
+.contact-form input,
+.contact-form textarea,
+.contact-box textarea {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder,
+.contact-box textarea::placeholder {
+  color: #ddd;
+}
+
+.contact-box textarea {
+  height: 100px;
+}
+
+.contact-form button,
+.contact-box button {
+  width: 100%;
+  padding: 12px;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.contact-form button:hover,
+.contact-box button:hover {
+  background: #e6b800;
+  transform: scale(1.05);
+}
+/* Feedback Section */
+.feedback {
+  margin-top: 30px;
+  padding: 20px;
+  max-width: 4000px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  text-align: center;
+  animation: fadeIn 1.5s ease-in-out;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.feedback:hover {
+  transform: scale(1.05);
+}
+
+.feedback h2 {
+  font-size: 24px;
+  color: #ffcc00;
+  margin-bottom: 10px;
+}
+
+.feedback p {
+  font-size: 16px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.feedback textarea {
+  width: 100%;
+  padding: 12px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  resize: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.feedback textarea::placeholder {
+  color: #ddd;
+}
+
+.feedback textarea:focus {
+  background: rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+.feedback button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ffcc00, #ff9900);
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.feedback button:hover {
+  background: linear-gradient(90deg, #e6b800, #ff7700);
+  transform: scale(1.05);
+}
+
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideInDown {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+
+
+
+
 /* Profile Image Flip Effect */
 .profile-image {
   width: 250px;
@@ -259,6 +554,16 @@
   }
   to {
     transform: translateX(-100%);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 

@@ -18,11 +18,9 @@ import symposium from "./assets/symposium-certificate.jpg";
 
 function App() {
   const [isClicked, setIsClicked] = useState(false);
-  const [bounceDirection, setBounceDirection] = useState("up");
+  const [isHovered, setIsHovered] = useState(false);
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-    setBounceDirection(bounceDirection === "up" ? "down" : "up");};
+  
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const certificates = [
     { title: "C Programming Certificate", image: cert1 },
@@ -112,12 +110,12 @@ function App() {
           <a href="#projects" className="btn">View My Projects</a>
         </div>
       {/* Image with Smooth Fade Swap Effect */}
-       {/* Click to Swap & Bounce */}
-       <div 
-          className={`profile-image ${bounceDirection}`} 
-          onClick={handleClick}
+      <div 
+          className="profile-image"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
         >
-          <img src={isClicked ? backPic : profilePic} alt="Profile" className="bounce-image" />
+          <img src={isHovered ? backPic : profilePic} alt="Profile" className="fade-image" />
         </div>
       </section>
 

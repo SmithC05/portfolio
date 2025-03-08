@@ -17,7 +17,12 @@ import symposium from "./assets/symposium-certificate.jpg";
 
 
 function App() {
-  const [flipped, setFlipped] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
+  const [bounceDirection, setBounceDirection] = useState("up");
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+    setBounceDirection(bounceDirection === "up" ? "down" : "up");};
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const certificates = [
     { title: "C Programming Certificate", image: cert1 },
@@ -30,6 +35,7 @@ function App() {
     { title: "AI Fundamentals with IBM SkillsBuild", image: aiFundamentals },
     { title: "Certificate of Recognition", image: symposium },];
     const [formStatus, setFormStatus] = useState("");
+    
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -52,6 +58,41 @@ function App() {
       })
       .catch(() => setFormStatus("Error sending message."));
     };
+    const handleFeedbackSubmit = async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+    
+      const feedbackData = {
+        name: formData.get("name") || "Anonymous",
+        email: formData.get("email") || "No Email",
+        feedback: formData.get("feedback") || "No Feedback",
+      };
+    
+      console.log("Sending Feedback Data:", feedbackData);
+    
+      fetch("https://script.google.com/macros/s/AKfycbyrQfvkXTK8-w-7ys5eWSWE7BXhOdWtAEQtRubVCuJ__2SuOrMQztiWhUHw_gCSISAL/exec", {
+        method: "POST",
+        mode: "cors", // ✅ Fix: Explicitly allow CORS
+        body: JSON.stringify(feedbackData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log("Server Response:", data);
+        if (data.status === "Success") {
+          setFormStatus("Feedback submitted successfully!");
+          e.target.reset();
+        } else {
+          setFormStatus("Failed to submit feedback. Try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setFormStatus("Error submitting feedback.");
+      });
+    };
     
 
   return (
@@ -59,6 +100,8 @@ function App() {
       <div className="marquee">
   <p>🚀 Welcome to My Portfolio! | 🔥 Aspiring Software Engineer | 💻 Passionate about Web Development & Problem-Solving! | 🎯 Let's Connect!| mrsmithcit@gmail.com</p>
 </div>
+
+
 
       <Navbar />
       <section id="home" className="home">
@@ -68,13 +111,13 @@ function App() {
           <p>Passionate about building scalable applications and solving real-world problems.</p>
           <a href="#projects" className="btn">View My Projects</a>
         </div>
-
-        {/* Profile Image with Flip Effect */}
-        <div className={`profile-image ${flipped ? "flipped" : ""}`} onClick={() => setFlipped(!flipped)}>
-          <div className="inner">
-            <img src={profilePic} alt="Profile Front" className="front" />
-            <img src={backPic} alt="Profile Back" className="back" />
-          </div>
+      {/* Image with Smooth Fade Swap Effect */}
+       {/* Click to Swap & Bounce */}
+       <div 
+          className={`profile-image ${bounceDirection}`} 
+          onClick={handleClick}
+        >
+          <img src={isClicked ? backPic : profilePic} alt="Profile" className="bounce-image" />
         </div>
       </section>
 
@@ -237,28 +280,49 @@ function App() {
     </div>
 
     {/* Contact Form */}
-    <h2>Send Me a Message</h2>
-    <form className="contact-form" onSubmit={handleSubmit}>
-      <input type="text" name="name" placeholder="Your Name" required />
-      <input type="email" name="email" placeholder="Your Email" required />
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+<div className="contact-box">
+  <h2>Send Me a Message</h2>
+  <form className="contact-form" onSubmit={handleSubmit}>
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+  
+  {/* Success/Error Message Popup */}
+  {formStatus && (
+    <div className="form-status-popup">
+      <p>{formStatus}</p>
+    </div>
+  )}
+</div>
+
 
     {/* Feedback Section */}
-    <div className="feedback">
-      <h2>Feedback</h2>
-      <p>Have suggestions or improvements? Feel free to drop your feedback here!</p>
-      <textarea name="feedback" placeholder="Your Feedback"></textarea>
-      <button>Submit Feedback</button>
+<div className="contact-box">
+  <h2>Feedback</h2>
+  <p>Have suggestions? Drop your feedback here!</p>
+  <form className="feedback-form" onSubmit={handleFeedbackSubmit}>
+    <input type="text" name="name" placeholder="Your Name" required />
+    <input type="email" name="email" placeholder="Your Email" required />
+    <textarea name="feedback" placeholder="Your Feedback" required></textarea>
+    <button type="submit">Submit Feedback</button>
+  </form>
+
+  {/* Success/Error Message for Feedback */}
+  {formStatus && (
+    <div className="form-status-popup">
+      <p>{formStatus}</p>
     </div>
+  )}
+</div>
+
 
   
 
   
 
-     {/* Form Status Message */}
-     {formStatus && <p className="form-status">{formStatus}</p>}
+     
 
 
   </div>

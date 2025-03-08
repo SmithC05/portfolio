@@ -358,7 +358,7 @@
   background: rgba(255, 255, 255, 0.1);
   padding: 20px;
   border-radius: 10px;
-  width: 400px;
+  width: 1500px;
   box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.3);
   animation: slideInUp 1s ease-in-out;
 }
@@ -404,6 +404,18 @@
   background: #e6b800;
   transform: scale(1.05);
 }
+/* Message Sent Popup */
+.form-status-popup {
+  margin-top: 10px;
+  padding: 10px;
+  background: rgba(0, 255, 0, 0.8);
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
 /* Feedback Section */
 .feedback {
   margin-top: 30px;
@@ -619,4 +631,5 @@
 body {
   padding-top: 40px; /* Adjust based on marquee height */
 }
+
 

@@ -17,7 +17,6 @@ import symposium from "./assets/symposium-certificate.jpg";
 
 
 function App() {
-  const [isClicked, setIsClicked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   
@@ -55,41 +54,6 @@ function App() {
         }
       })
       .catch(() => setFormStatus("Error sending message."));
-    };
-    const handleFeedbackSubmit = async (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-    
-      const feedbackData = {
-        name: formData.get("name") || "Anonymous",
-        email: formData.get("email") || "No Email",
-        feedback: formData.get("feedback") || "No Feedback",
-      };
-    
-      console.log("Sending Feedback Data:", feedbackData);
-    
-      fetch("https://script.google.com/macros/s/AKfycbyrQfvkXTK8-w-7ys5eWSWE7BXhOdWtAEQtRubVCuJ__2SuOrMQztiWhUHw_gCSISAL/exec", {
-        method: "POST",
-        mode: "cors", // ✅ Fix: Explicitly allow CORS
-        body: JSON.stringify(feedbackData),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Server Response:", data);
-        if (data.status === "Success") {
-          setFormStatus("Feedback submitted successfully!");
-          e.target.reset();
-        } else {
-          setFormStatus("Failed to submit feedback. Try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setFormStatus("Error submitting feedback.");
-      });
     };
     
 
@@ -294,35 +258,6 @@ function App() {
     </div>
   )}
 </div>
-
-
-    {/* Feedback Section */}
-<div className="contact-box">
-  <h2>Feedback</h2>
-  <p>Have suggestions? Drop your feedback here!</p>
-  <form className="feedback-form" onSubmit={handleFeedbackSubmit}>
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <textarea name="feedback" placeholder="Your Feedback" required></textarea>
-    <button type="submit">Submit Feedback</button>
-  </form>
-
-  {/* Success/Error Message for Feedback */}
-  {formStatus && (
-    <div className="form-status-popup">
-      <p>{formStatus}</p>
-    </div>
-  )}
-</div>
-
-
-  
-
-  
-
-     
-
-
   </div>
 </section>
 

@@ -347,63 +347,60 @@
 }
 
 /* Form and Feedback Side by Side */
-.contact-form-container {
+.contact-container {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
+  width: 100%;
+  padding: 30px;
 }
 
-.contact-box {
-  background: rgba(255, 255, 255, 0.1);
+.contact-form {
+  width: 500px; /* ✅ Desktop size remains large */
+  background: rgba(255, 255, 255, 0.9);
   padding: 20px;
   border-radius: 10px;
-  width: 1500px;
-  box-shadow: 0px 0px 10px rgba(255, 204, 0, 0.3);
-  animation: slideInUp 1s ease-in-out;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Contact Form & Feedback */
+/* ✨ Input & Textarea Hover Effect */
 .contact-form input,
-.contact-form textarea,
-.contact-box textarea {
+.contact-form textarea {
   width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 5px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-}
-
-.contact-form input::placeholder,
-.contact-form textarea::placeholder,
-.contact-box textarea::placeholder {
-  color: #ddd;
-}
-
-.contact-box textarea {
-  height: 100px;
-}
-
-.contact-form button,
-.contact-box button {
-  width: 100%;
   padding: 12px;
-  background: #ffcc00;
-  color: black;
-  font-weight: bold;
-  border: none;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.3s, background 0.3s;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-.contact-form button:hover,
-.contact-box button:hover {
-  background: #e6b800;
-  transform: scale(1.05);
+.contact-form input:hover,
+.contact-form textarea:hover {
+  border: 1px solid #FFD700; /* ✅ Changes border color on hover */
+  box-shadow: 0 0 8px #FFD700; /* ✅ Adds a soft glowing effect */
 }
+
+/* ✨ Button Hover Effect */
+.contact-form button {
+  width: 100%;
+  font-size: 16px;
+  padding: 12px;
+  background: #FFD700;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.contact-form button:hover {
+  background: #FFC107;
+  transform: scale(1.05); /* ✅ Slight zoom effect on hover */
+  box-shadow: 0 0 10px #FFC107; /* ✅ Adds a subtle glow */
+}
+
 /* Message Sent Popup */
 .form-status-popup {
   margin-top: 10px;
@@ -416,74 +413,8 @@
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Feedback Section */
-.feedback {
-  margin-top: 30px;
-  padding: 20px;
-  max-width: 4000px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
-  text-align: center;
-  animation: fadeIn 1.5s ease-in-out;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: transform 0.3s ease-in-out;
-}
 
-.feedback:hover {
-  transform: scale(1.05);
-}
 
-.feedback h2 {
-  font-size: 24px;
-  color: #ffcc00;
-  margin-bottom: 10px;
-}
-
-.feedback p {
-  font-size: 16px;
-  color: white;
-  margin-bottom: 10px;
-}
-
-.feedback textarea {
-  width: 100%;
-  padding: 12px;
-  height: 120px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 16px;
-  resize: none;
-  transition: background 0.3s ease-in-out;
-}
-
-.feedback textarea::placeholder {
-  color: #ddd;
-}
-
-.feedback textarea:focus {
-  background: rgba(255, 255, 255, 0.3);
-  outline: none;
-}
-
-.feedback button {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #ffcc00, #ff9900);
-  color: black;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: transform 0.3s, background 0.3s;
-}
-
-.feedback button:hover {
-  background: linear-gradient(90deg, #e6b800, #ff7700);
-  transform: scale(1.05);
-}
 
 
 /* Animations */
@@ -583,12 +514,12 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .home {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 100vh;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
   }
 
   .profile-image {
@@ -599,27 +530,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
   cursor: pointer;
+  background-color: transparent;
   }
 
   .profile-image .inner {
-    width: 200px; /* Adjust size */
-    height: 200px;
+    width: 100%; /* Adjust size */
+    height: 100%;
     position: relative;
     transform-style: preserve-3d;
     transition: transform 0.8s ease-in-out;
   }
 
   .profile-image img {
-    width: 200px;
-    height: 200px;
     display: block;
     position: absolute;
     backface-visibility: hidden;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #ffcc00;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.3s ease-in-out;
+    margin: auto;
   }
 
   .profile-image .back {
@@ -633,10 +567,42 @@
     transform: scale(1.1);
   box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
   }
+  .contact-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    width: 90%;
+    margin: auto;
+  }
+
+
 }
-/* Push content down so Navbar is not hidden under marquee */
+@media (max-width: 768px) {
+  .contact-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .contact-form {
+    width: 100%; /* ✅ Mobile-friendly size */
+    max-width: 400px;
+    padding: 15px;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  width: 100%;
+  overflow-x: hidden; 
+}
+
 body {
-  padding-top: 40px; /* Adjust based on marquee height */
+  padding-top: 40px;
 }
 
 

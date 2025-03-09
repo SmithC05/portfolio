@@ -566,6 +566,7 @@
   .profile-image:hover {
     transform: scale(1.1);
   box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
+  transition: box-shadow 0.3s ease-in-out;
   }
   .contact-container {
     display: flex;

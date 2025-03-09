@@ -225,7 +225,7 @@ function App() {
     <div className="contact-item">
       <i className="fab fa-linkedin"></i>
       <p>
-        <a href="https://linkedin.com/in/smithc" target="_blank" rel="noopener noreferrer">
+        <a href="https://linkedin.com/in/mrsmithc" target="_blank" rel="noopener noreferrer">
           Smith C
         </a>
       </p>

@@ -13,6 +13,7 @@ import iot from "./assets/iot.jpg";
 import modernAI from "./assets/modern-ai.jpg";
 import aiFundamentals from "./assets/ai-fundamentals.jpg";
 import symposium from "./assets/symposium-certificate.jpg";
+import recognition from "./assets/certificate-seedstart.jpg";
 
 
 
@@ -30,7 +31,8 @@ function App() {
     { title: "Introduction to IoT and Digital Transformation", image: iot },
     { title: "Introduction to Modern AI", image: modernAI },
     { title: "AI Fundamentals with IBM SkillsBuild", image: aiFundamentals },
-    { title: "Certificate of Recognition", image: symposium },];
+    { title: "Certificate of Recognition", image: symposium },
+    { title: "Certificate of Recognition Seedstart", image: recognition },];
     const [formStatus, setFormStatus] = useState("");
     
 

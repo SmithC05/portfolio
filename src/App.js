@@ -74,7 +74,7 @@ function App() {
           <p>Passionate about building scalable applications and solving real-world problems.</p>
           <a href="#projects" className="btn">View My Projects</a>
         </div>
-        <div className="profile-pic">
+        <div className="profile-image">
           <img src={profilePic} alt="Smith C" />
         </div>
       </section>
@@ -125,7 +125,7 @@ function App() {
             <p>MongoDB</p>
           </div>
           <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/expressjs-original.svg" alt="Express.js" />
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" />
             <p>Express.js</p>
           </div>
 

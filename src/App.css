@@ -29,14 +29,32 @@
 .content {
   max-width: 500px;
 }
+.profile-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1000px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background 0.3s ease-in-out;
+  cursor: pointer;
+  background-color: transparent;
+  margin-left: 30px;
+  
+}
 
+.profile-image:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;
+}
 .profile-image img {
   width: 250px;
   height: 250px;
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid #ffcc00;
-  margin-left: 30px;
   object-position: center 15%; /* Adjust percentage to move it lower */
 }
 /* About Me Section */
@@ -417,57 +435,20 @@
 
 
 
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideInUp {
-  from { transform: translateY(50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes slideInDown {
-  from { transform: translateY(-50px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
 
 
 
 
 
-/* Profile Image Flip Effect */
-.profile-image {
-  width: 250px;
-  height: 250px;
-  perspective: 1000px; /* 3D Effect */
-}
 
-.profile-image .inner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: transform 0.8s ease-in-out;
-}
 
-.profile-image.flipped .inner {
-  transform: rotateY(180deg);
-}
 
-.profile-image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  position: absolute;
-  backface-visibility: hidden; /* Hide back side by default */
-  border: 4px solid #ffcc00;
-}
 
-.profile-image .back {
-  transform: rotateY(180deg); /* Initially hidden */
-}
+
+
+
+
+
 /* Running Text (Smooth Marquee Effect) */
 .marquee {
   width: 100%;
@@ -535,34 +516,9 @@
   background-color: transparent;
   }
 
-  .profile-image .inner {
-    width: 100%; /* Adjust size */
-    height: 100%;
-    position: relative;
-    transform-style: preserve-3d;
-    transition: transform 0.8s ease-in-out;
-  }
+  
 
-  .profile-image img {
-    display: block;
-    position: absolute;
-    backface-visibility: hidden;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #ffcc00;
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.3s ease-in-out;
-    margin: auto;
-  }
-
-  .profile-image .back {
-    transform: rotateY(180deg);
-  }
-
-  .profile-image.flipped .inner {
-    transform: rotateY(180deg);
-  }
+  
   .profile-image:hover {
     transform: scale(1.1);
   box-shadow: 0 0 15px #FFD700, 0 0 30px #FFD700;

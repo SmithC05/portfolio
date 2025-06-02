@@ -150,14 +150,14 @@ function App() {
     <div class="project">
   <h3>Chat App</h3>
   <p>A real-time chat application with user authentication and WebSocket-based messaging. Built with Node.js and Socket.io.</p>
-  <a href="https://github.com/SmithC05/Chat" target="_blank">View on GitHub</a> 
+  <a href="https://github.com/SmithC05/Chat" target="_blank"   rel="noopener noreferrer">🔗  View on GitHub</a> 
 </div>
 
 {/* Authenticated PDF Generator */}
 <div class="project">
   <h3>Authenticated PDF Generator</h3>
   <p>A tool to generate PDFs securely after user login, with plans for advanced features like image-to-PDF, merging, and splitting. Built using Node.js and MongoDB.</p>
-  <a href="https://github.com/SmithC05/Pdf" target="_blank">View on GitHub</a> 
+  <a href="https://github.com/SmithC05/Pdf" target="_blank" rel="noopener noreferrer" >🔗 View on GitHub</a> 
 </div>
 
     

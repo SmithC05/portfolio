@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import profilePic from "./assets/profile.jpg"; // Front Image
-import backPic from "./assets/back-profile.jpg"; // Back Image (can be same or different)
+import profilePic from "./assets/profile.jpg"; 
 import cert1 from "./assets/c-certificate.jpg";
 import toefl1 from "./assets/toefl-certificate1.jpg";
 import toefl2 from "./assets/toefl-certificate2.jpg";
@@ -18,7 +17,7 @@ import recognition from "./assets/certificate-seedstart.jpg";
 
 
 function App() {
-  const [isHovered, setIsHovered] = useState(false);
+  
 
   
   const [selectedCertificate, setSelectedCertificate] = useState(null);
@@ -75,13 +74,8 @@ function App() {
           <p>Passionate about building scalable applications and solving real-world problems.</p>
           <a href="#projects" className="btn">View My Projects</a>
         </div>
-      {/* Image with Smooth Fade Swap Effect */}
-      <div 
-          className="profile-image"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <img src={isHovered ? backPic : profilePic} alt="Profile" className="fade-image" />
+        <div className="profile-pic">
+          <img src={profilePic} alt="Smith C" />
         </div>
       </section>
 
@@ -130,6 +124,11 @@ function App() {
             <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
             <p>MongoDB</p>
           </div>
+          <div className="skill">
+            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/expressjs-original.svg" alt="Express.js" />
+            <p>Express.js</p>
+          </div>
+
         </div>
       </section>
 
@@ -137,6 +136,30 @@ function App() {
 <section id="projects" className="projects">
   <h1>My Projects</h1>
   <div className="projects-container">
+
+    {/* Portfolio */}
+    <div className="project">
+      <h2>Portfolio Website</h2>
+      <p>My personal portfolio showcasing projects, skills, and achievements.</p>
+      <a href="https://github.com/SmithC05/portfolio" target="_blank" rel="noopener noreferrer">
+        🔗 View on GitHub
+      </a>
+    </div>
+    
+    {/*Chat App */}
+    <div class="project">
+  <h3>Chat App</h3>
+  <p>A real-time chat application with user authentication and WebSocket-based messaging. Built with Node.js and Socket.io.</p>
+  <a href="https://github.com/SmithC05/Chat" target="_blank">View on GitHub</a> 
+</div>
+
+{/* Authenticated PDF Generator */}
+<div class="project">
+  <h3>Authenticated PDF Generator</h3>
+  <p>A tool to generate PDFs securely after user login, with plans for advanced features like image-to-PDF, merging, and splitting. Built using Node.js and MongoDB.</p>
+  <a href="https://github.com/SmithC05/Pdf" target="_blank">View on GitHub</a> 
+</div>
+
     
     {/* Online Bank Website */}
     <div className="project">
@@ -156,14 +179,7 @@ function App() {
       </a>
     </div>
 
-    {/* Portfolio */}
-    <div className="project">
-      <h2>Portfolio Website</h2>
-      <p>My personal portfolio showcasing projects, skills, and achievements.</p>
-      <a href="https://github.com/SmithC05/portfolio" target="_blank" rel="noopener noreferrer">
-        🔗 View on GitHub
-      </a>
-    </div>
+    
 
     {/* MoCo Store */}
     <div className="project">

@@ -3,8 +3,11 @@ import Navbar from "./components/Navbar";
 import HeroSection from "./components/Hero/HeroSection";
 import { useScrollAnimation } from "./components/Common/ScrollAnimations";
 import LazyImage from "./components/Common/LazyImage";
-import { initializeAccessibility } from "./utils/accessibility";
+import CertificateModal from "./components/Common/CertificateModal";
+import { initializeAccessibility, focusManagement } from "./utils/accessibility";
 import { addResourceHints, shouldUseReducedAnimations } from "./utils/performance";
+import { initializeBundleAnalysis } from "./utils/bundleAnalysis";
+import { initializeAccessibilityTesting } from "./utils/accessibilityTesting";
 import "./App.css";
 import "./styles/animations.css";
 import "./styles/accessibility.css";
@@ -42,6 +45,12 @@ function App() {
     
     // Initialize accessibility features
     initializeAccessibility();
+    
+    // Initialize bundle analysis in development
+    initializeBundleAnalysis();
+    
+    // Initialize accessibility testing in development
+    initializeAccessibilityTesting();
     
     // Check if we should use reduced animations
     setUseReducedAnimations(shouldUseReducedAnimations());
@@ -117,12 +126,73 @@ function App() {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      const formData = new FormData(e.target);
-    
-      // Show loading state on mobile
-      if (isMobile) {
-        setFormStatus("Sending message...");
+      const form = e.target;
+      const formData = new FormData(form);
+      
+      // Clear previous errors
+      const errorElements = form.querySelectorAll('.error-message');
+      errorElements.forEach(el => {
+        el.textContent = '';
+        el.parentElement.classList.remove('error');
+      });
+      
+      // Validate form
+      const name = formData.get('name')?.trim();
+      const email = formData.get('email')?.trim();
+      const message = formData.get('message')?.trim();
+      
+      let hasErrors = false;
+      
+      if (!name) {
+        showFieldError('name-error', 'Name is required');
+        hasErrors = true;
       }
+      
+      if (!email) {
+        showFieldError('email-error', 'Email is required');
+        hasErrors = true;
+      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFieldError('email-error', 'Please enter a valid email address');
+        hasErrors = true;
+      }
+      
+      if (!message) {
+        showFieldError('message-error', 'Message is required');
+        hasErrors = true;
+      } else if (message.length < 10) {
+        showFieldError('message-error', 'Message must be at least 10 characters long');
+        hasErrors = true;
+      }
+      
+      if (hasErrors) {
+        // Focus first error field
+        const firstError = form.querySelector('.form-group.error input, .form-group.error textarea');
+        if (firstError) {
+          firstError.focus();
+          firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        
+        // Announce errors to screen readers
+        const errorCount = form.querySelectorAll('.form-group.error').length;
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'assertive');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Form has ${errorCount} error${errorCount > 1 ? 's' : ''}. Please correct and try again.`;
+        document.body.appendChild(announcement);
+        setTimeout(() => document.body.removeChild(announcement), 3000);
+        
+        return;
+      }
+    
+      // Show loading state
+      setFormStatus("Sending message...");
+      
+      // Disable form during submission
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      submitButton.setAttribute('aria-busy', 'true');
     
       fetch("https://formspree.io/f/movealqk", {
         method: "POST",
@@ -134,21 +204,47 @@ function App() {
       .then((response) => {
         if (response.ok) {
           setFormStatus("Message sent successfully!");
-          e.target.reset();
-          // Auto-hide success message on mobile after 3 seconds
-          if (isMobile) {
-            setTimeout(() => setFormStatus(""), 3000);
-          }
+          form.reset();
+          
+          // Announce success to screen readers
+          const announcement = document.createElement('div');
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.className = 'sr-only';
+          announcement.textContent = 'Message sent successfully!';
+          document.body.appendChild(announcement);
+          setTimeout(() => document.body.removeChild(announcement), 3000);
+          
+          // Auto-hide success message after 5 seconds
+          setTimeout(() => setFormStatus(""), 5000);
         } else {
-          setFormStatus("Failed to send message. Try again.");
+          setFormStatus("Failed to send message. Please try again.");
         }
       })
-      .catch(() => setFormStatus("Error sending message."));
+      .catch(() => {
+        setFormStatus("Error sending message. Please check your connection and try again.");
+      })
+      .finally(() => {
+        // Re-enable form
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+        submitButton.removeAttribute('aria-busy');
+      });
+    };
+    
+    const showFieldError = (errorId, message) => {
+      const errorElement = document.getElementById(errorId);
+      if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.parentElement.classList.add('error');
+      }
     };
 
-    // Handle certificate modal with mobile optimizations
-    const handleCertificateClick = (certificateImage) => {
-      setSelectedCertificate(certificateImage);
+    // Handle certificate modal with mobile optimizations and accessibility
+    const handleCertificateClick = (certificateImage, certificateTitle) => {
+      // Save current focus for restoration
+      const currentFocus = focusManagement.saveFocus();
+      
+      setSelectedCertificate({ image: certificateImage, title: certificateTitle, previousFocus: currentFocus });
       
       // Add haptic feedback on mobile (if supported)
       if (isMobile && navigator.vibrate) {
@@ -157,20 +253,26 @@ function App() {
     };
 
     const handleModalClose = () => {
+      // Restore focus to the element that opened the modal
+      if (selectedCertificate?.previousFocus) {
+        focusManagement.restoreFocus(selectedCertificate.previousFocus);
+      }
+      
       setSelectedCertificate(null);
     };
     
 
   return (
-    <div>
-      <div className="marquee">
-  <p>🚀 Welcome to My Portfolio! | 🔥 Aspiring Software Engineer | 💻 Passionate about Web Development & Problem-Solving! | 🎯 Let's Connect!| mrsmithcit@gmail.com</p>
-</div>
-
-
+    <div className="app">
+      <a href="#main-content" className="skip-link">Skip to main content</a>
+      
+      <div className="marquee" role="banner" aria-label="Welcome message">
+        <p>🚀 Welcome to My Portfolio! | 🔥 Aspiring Software Engineer | 💻 Passionate about Web Development & Problem-Solving! | 🎯 Let's Connect!| mrsmithcit@gmail.com</p>
+      </div>
 
       <Navbar />
-      <main>
+      
+      <main id="main-content" role="main">
         <section id="hero" aria-label="Hero section">
           <HeroSection />
         </section>
@@ -348,13 +450,13 @@ function App() {
               key={index} 
               className="certificate animate-stagger hover-lift" 
               style={{ animationDelay: `${index * 100}ms` }}
-              onClick={() => handleCertificateClick(cert.image)}
+              onClick={() => handleCertificateClick(cert.image, cert.title)}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
-                  handleCertificateClick(cert.image);
+                  handleCertificateClick(cert.image, cert.title);
                 }
               }}
               aria-label={`View ${cert.title} certificate`}
@@ -373,42 +475,11 @@ function App() {
 
       {/* Modal for Full-Screen Certificate */}
       {selectedCertificate && (
-        <div 
-          className="modal" 
-          onClick={handleModalClose}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Certificate viewer"
-        >
-          <div 
-            className="modal-content" 
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="close"
-              onClick={handleModalClose}
-              aria-label="Close certificate viewer"
-              type="button"
-            >
-              &times;
-            </button>
-            <LazyImage 
-              src={selectedCertificate} 
-              alt="Full Certificate" 
-              className="modal-image"
-              onLoad={() => {
-                // Ensure image is fully loaded before showing
-                if (isMobile) {
-                  // Add slight delay for better mobile experience
-                  setTimeout(() => {
-                    const img = document.querySelector('.modal img');
-                    if (img) img.style.opacity = '1';
-                  }, 100);
-                }
-              }}
-            />
-          </div>
-        </div>
+        <CertificateModal 
+          certificate={selectedCertificate}
+          onClose={handleModalClose}
+          isMobile={isMobile}
+        />
       )}
 
 
@@ -424,36 +495,59 @@ function App() {
   <div className="contact-container">
     
     {/* Contact Information Grid */}
-    <div className="contact-items-grid">
+    <div className="contact-items-grid" role="list">
       {/* Phone */}
-      <div className="contact-item">
-        <i className="fas fa-phone-alt"></i>
-        <p>+91 9361491329</p>
+      <div className="contact-item" role="listitem">
+        <i className="fas fa-phone-alt" aria-hidden="true"></i>
+        <span className="sr-only">Phone:</span>
+        <p>
+          <a href="tel:+919361491329" aria-label="Call +91 9361491329">
+            +91 9361491329
+          </a>
+        </p>
       </div>
 
       {/* Personal Email */}
-      <div className="contact-item">
-        <i className="fas fa-envelope"></i>
+      <div className="contact-item" role="listitem">
+        <i className="fas fa-envelope" aria-hidden="true"></i>
+        <span className="sr-only">Email:</span>
         <p>
-          <a href="mailto:mrsmithcit@gmail.com">mrsmithcit@gmail.com</a>
+          <a 
+            href="mailto:mrsmithcit@gmail.com" 
+            aria-label="Send email to mrsmithcit@gmail.com"
+          >
+            mrsmithcit@gmail.com
+          </a>
         </p>
       </div>
 
       {/* LinkedIn */}
-      <div className="contact-item">
-        <i className="fab fa-linkedin"></i>
+      <div className="contact-item" role="listitem">
+        <i className="fab fa-linkedin" aria-hidden="true"></i>
+        <span className="sr-only">LinkedIn:</span>
         <p>
-          <a href="https://linkedin.com/in/mrsmithc" target="_blank" rel="noopener noreferrer">
+          <a 
+            href="https://linkedin.com/in/mrsmithc" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="Visit Smith C's LinkedIn profile (opens in new tab)"
+          >
             Smith C
           </a>
         </p>
       </div>
 
       {/* GitHub */}
-      <div className="contact-item">
-        <i className="fab fa-github"></i>
+      <div className="contact-item" role="listitem">
+        <i className="fab fa-github" aria-hidden="true"></i>
+        <span className="sr-only">GitHub:</span>
         <p>
-          <a href="https://github.com/SmithC05" target="_blank" rel="noopener noreferrer">
+          <a 
+            href="https://github.com/SmithC05" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            aria-label="Visit SmithC05's GitHub profile (opens in new tab)"
+          >
             SmithC05
           </a>
         </p>
@@ -531,6 +625,10 @@ function App() {
   </div>
 </section>
       </main>
+      
+      <footer role="contentinfo" className="sr-only">
+        <p>© 2024 Smith C - Software Developer Portfolio</p>
+      </footer>
     </div>
   );
 }

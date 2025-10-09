@@ -1,39 +1,11 @@
 import React, { useState } from 'react';
+import { experienceData } from '../../data';
 import './ExperienceTimeline.css';
 
 const ExperienceTimeline = () => {
   const [expandedItem, setExpandedItem] = useState(null);
 
-  const experienceData = [
-    {
-      id: 1,
-      role: "Full-Stack Intern",
-      company: "Ziyack Technologies Private Limited",
-      duration: "07/2025 - PRESENT",
-      location: "Chennai",
-      description: "Developing core product features using Node.js, Express.js, PostgreSQL, Supabase, with Dockerized workflows",
-      technologies: ["Node.js", "Express.js", "PostgreSQL", "Supabase", "Docker"],
-      achievements: [
-        "Built scalable backend APIs",
-        "Implemented database optimization strategies",
-        "Collaborated with frontend team for seamless integration"
-      ]
-    },
-    {
-      id: 2,
-      role: "Backend Developer Intern",
-      company: "Zero2Site",
-      duration: "05/2025 - 06/2025",
-      location: "Chennai",
-      description: "Built backend APIs with Node.js, Express.js, MongoDB. Collaborated with frontend for seamless integration",
-      technologies: ["Node.js", "Express.js", "MongoDB"],
-      achievements: [
-        "Developed RESTful APIs",
-        "Integrated with frontend applications",
-        "Optimized database queries"
-      ]
-    }
-  ];
+  // Using imported experience data
 
   const toggleExpanded = (id) => {
     setExpandedItem(expandedItem === id ? null : id);

@@ -1,15 +1,12 @@
 import React from 'react';
 import ContactForm from './ContactForm';
 import SocialLinks from './SocialLinks';
+import { personalInfo, contactInfo } from '../../data';
 import './ContactSection.css';
 
 const ContactSection = () => {
-  const contactInfo = {
-    email: 'msmithcit@gmail.com',
-    phone: '+91-9361491329',
-    location: 'Chennai, India',
-    availability: 'Open to opportunities'
-  };
+  // Using imported contact information
+  const contactData = contactInfo.professional;
 
   return (
     <section id="contact" className="contact-section section">
@@ -35,8 +32,8 @@ const ContactSection = () => {
                   </div>
                   <div className="contact-text">
                     <span className="contact-label">Email</span>
-                    <a href={`mailto:${contactInfo.email}`} className="contact-value">
-                      {contactInfo.email}
+                    <a href={`mailto:${contactData.email}`} className="contact-value">
+                      {contactData.email}
                     </a>
                   </div>
                 </div>
@@ -49,8 +46,8 @@ const ContactSection = () => {
                   </div>
                   <div className="contact-text">
                     <span className="contact-label">Phone</span>
-                    <a href={`tel:${contactInfo.phone}`} className="contact-value">
-                      {contactInfo.phone}
+                    <a href={`tel:${contactData.phone}`} className="contact-value">
+                      {contactData.phone}
                     </a>
                   </div>
                 </div>
@@ -63,7 +60,7 @@ const ContactSection = () => {
                   </div>
                   <div className="contact-text">
                     <span className="contact-label">Location</span>
-                    <span className="contact-value">{contactInfo.location}</span>
+                    <span className="contact-value">{contactData.location}</span>
                   </div>
                 </div>
 
@@ -75,7 +72,7 @@ const ContactSection = () => {
                   </div>
                   <div className="contact-text">
                     <span className="contact-label">Status</span>
-                    <span className="contact-value status-available">{contactInfo.availability}</span>
+                    <span className="contact-value status-available">{contactData.availability}</span>
                   </div>
                 </div>
               </div>
@@ -87,7 +84,7 @@ const ContactSection = () => {
 
               <div className="contact-resume">
                 <a 
-                  href="/assets/Smith_C_Resume.pdf" 
+                  href={personalInfo.resumeUrl} 
                   className="btn btn-primary resume-download"
                   download="Smith_C_Resume.pdf"
                 >

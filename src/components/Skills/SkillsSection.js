@@ -1,48 +1,20 @@
 import React, { useState } from 'react';
 import SectionHeader from '../Common/SectionHeader';
 import TechnicalSkills from './TechnicalSkills';
+import { skillsData, skillCategories } from '../../data';
 import './SkillsSection.css';
 
 const SkillsSection = () => {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const skillCategories = [
-    { id: 'all', name: 'All Skills', icon: '🚀' },
-    { id: 'frontend', name: 'Frontend', icon: '🎨' },
-    { id: 'backend', name: 'Backend', icon: '⚙️' },
-    { id: 'database', name: 'Database', icon: '🗄️' },
-    { id: 'tools', name: 'Tools', icon: '🛠️' }
+  // Add icons to imported skill categories
+  const categoriesWithIcons = [
+    { ...skillCategories[0], icon: '🚀' },
+    { ...skillCategories[1], icon: '🎨' },
+    { ...skillCategories[2], icon: '⚙️' },
+    { ...skillCategories[3], icon: '🗄️' },
+    { ...skillCategories[4], icon: '🛠️' }
   ];
-
-  const skillsData = {
-    frontend: [
-      { name: 'React.js', proficiency: 85, icon: '⚛️' },
-      { name: 'JavaScript', proficiency: 90, icon: '📜' },
-      { name: 'TypeScript', proficiency: 80, icon: '📘' },
-      { name: 'HTML/CSS', proficiency: 95, icon: '🎨' },
-      { name: 'Responsive Design', proficiency: 90, icon: '📱' }
-    ],
-    backend: [
-      { name: 'Node.js', proficiency: 88, icon: '🟢' },
-      { name: 'Express.js', proficiency: 85, icon: '🚀' },
-      { name: 'Python', proficiency: 80, icon: '🐍' },
-      { name: 'Java', proficiency: 75, icon: '☕' },
-      { name: 'C/C++', proficiency: 85, icon: '⚡' }
-    ],
-    database: [
-      { name: 'MongoDB', proficiency: 85, icon: '🍃' },
-      { name: 'PostgreSQL', proficiency: 80, icon: '🐘' },
-      { name: 'MySQL', proficiency: 75, icon: '🐬' },
-      { name: 'Supabase', proficiency: 80, icon: '⚡' }
-    ],
-    tools: [
-      { name: 'Git/GitHub', proficiency: 90, icon: '🐙' },
-      { name: 'Docker', proficiency: 75, icon: '🐳' },
-      { name: 'VS Code', proficiency: 95, icon: '💻' },
-      { name: 'Postman', proficiency: 85, icon: '📮' },
-      { name: 'Linux', proficiency: 80, icon: '🐧' }
-    ]
-  };
 
   const getFilteredSkills = () => {
     if (activeCategory === 'all') {
@@ -50,7 +22,9 @@ const SkillsSection = () => {
         return [...acc, ...skills.map(skill => ({ ...skill, category }))];
       }, []);
     }
-    return skillsData[activeCategory] || [];
+    // Handle database vs databases naming difference
+    const categoryKey = activeCategory === 'database' ? 'databases' : activeCategory;
+    return skillsData[categoryKey] || [];
   };
 
   const handleCategoryChange = (categoryId) => {
@@ -70,7 +44,7 @@ const SkillsSection = () => {
         <div className="skills-section__content">
           {/* Category Filter */}
           <div className="skills-section__filters">
-            {skillCategories.map((category) => (
+            {categoriesWithIcons.map((category) => (
               <button
                 key={category.id}
                 className={`skills-section__filter-btn ${

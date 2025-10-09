@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typewriter } from 'react-simple-typewriter';
 import ProfileImage from './ProfileImage';
+import { personalInfo } from '../../data';
 import './HeroSection.css';
 
 const HeroSection = () => {
@@ -12,9 +13,9 @@ const HeroSection = () => {
 
   useEffect(() => {
     const targetCounts = {
-      experience: 2,
-      projects: 6,
-      technologies: 10
+      experience: parseInt(personalInfo.metrics.experience),
+      projects: parseInt(personalInfo.metrics.projects),
+      technologies: parseInt(personalInfo.metrics.technologies)
     };
 
     const animateCounters = () => {
@@ -48,7 +49,7 @@ const HeroSection = () => {
   const handleResumeDownload = () => {
     // Create a temporary link to download resume
     const link = document.createElement('a');
-    link.href = '/assets/Smith_C_Resume.pdf'; // This would be the actual resume path
+    link.href = personalInfo.resumeUrl;
     link.download = 'Smith_C_Resume.pdf';
     document.body.appendChild(link);
     link.click();
@@ -66,12 +67,12 @@ const HeroSection = () => {
     <section id="home" className="hero-section">
       <div className="hero-content">
         <div className="hero-text">
-          <h1>Hi, I'm <span className="name-highlight">Smith C</span></h1>
+          <h1>Hi, I'm <span className="name-highlight">{personalInfo.name}</span></h1>
           <h2 className="role-title">
             <Typewriter
               words={[
-                'Aspiring Software Developer',
-                'Backend Development Specialist', 
+                personalInfo.title,
+                personalInfo.subtitle,
                 'Full-Stack Developer',
                 'Web Technologies Expert'
               ]}
@@ -84,9 +85,7 @@ const HeroSection = () => {
             />
           </h2>
           <p className="hero-description">
-            Passionate about building scalable applications and solving real-world problems 
-            with modern web technologies. Currently specializing in backend development 
-            and full-stack solutions.
+            {personalInfo.summary}
           </p>
 
           {/* Key Metrics */}

@@ -1,81 +1,17 @@
 import React from 'react';
 import SectionHeader from '../Common/SectionHeader';
 import CertificatesGrid from './CertificatesGrid';
+import { educationData, certificationsData, hackathonsData, achievementsData } from '../../data';
 import './AchievementsSection.css';
 
 const AchievementsSection = () => {
-  const educationData = [
-    {
-      id: 1,
-      degree: "B.E. in Computer Science Engineering",
-      institution: "CIT CHENNAI",
-      duration: "07/2024 - 06/2028",
-      location: "Chennai",
-      cgpa: "8.62",
-      type: "Bachelor's Degree",
-      status: "Current"
-    },
-    {
-      id: 2,
-      degree: "HSLC SSHN Hr Sec School",
-      institution: "SSHN Hr Sec School",
-      duration: "06/2023 - 03/2024",
-      location: "Rajapalayam",
-      grade: "94.5%",
-      type: "Higher Secondary",
-      status: "Completed"
-    }
-  ];
-
-  const certifications = [
-    {
-      id: 1,
-      title: "Android Development Virtual Internship",
-      issuer: "Google (via Eduskills)",
-      category: "Mobile Development",
-      type: "Professional Development",
-      status: "Completed"
-    },
-    {
-      id: 2,
-      title: "Full Stack Development Bootcamp",
-      issuer: "LeetCode, CodeChef",
-      category: "Web Development",
-      type: "Technical Skills",
-      status: "Completed"
-    },
-    {
-      id: 3,
-      title: "IBM SkillsBuild Certifications",
-      issuer: "IBM",
-      category: "Cloud & AI",
-      type: "Technical Skills",
-      status: "Completed",
-      subcertifications: ["AI Fundamentals", "Data Science", "Cloud Computing"]
-    },
-    {
-      id: 4,
-      title: "Cisco Networking Certifications",
-      issuer: "Cisco",
-      category: "Networking",
-      type: "Technical Skills",
-      status: "Completed",
-      subcertifications: ["Cybersecurity", "IoT", "Digital Transformation"]
-    }
-  ];
-
-  const achievements = [
+  // Process achievements data for display
+  const processedAchievements = [
     {
       id: 1,
       title: "Hackathon Participation",
       description: "Active participation in multiple prestigious hackathons",
-      badges: [
-        "Google Cloud Hackathon",
-        "AgentLab Challenge",
-        "Adobe India Hackathon",
-        "CodeSynthesis Competition",
-        "EdgyBot Challenge"
-      ],
+      badges: hackathonsData.map(h => h.name),
       icon: "🏆"
     },
     {
@@ -83,9 +19,9 @@ const AchievementsSection = () => {
       title: "Academic Excellence",
       description: "Consistent high performance in academic pursuits",
       badges: [
-        "CGPA: 8.62/10",
-        "Higher Secondary: 94.5%",
-        "Dean's List Recognition"
+        `CGPA: ${educationData[0]?.cgpa}/10`,
+        `Higher Secondary: ${educationData[1]?.grade}`,
+        "Technical Excellence"
       ],
       icon: "🎓"
     },
@@ -94,8 +30,8 @@ const AchievementsSection = () => {
       title: "Professional Development",
       description: "Continuous learning and skill enhancement",
       badges: [
-        "Multiple Industry Certifications",
-        "Internship Completions",
+        `${certificationsData.length}+ Certifications`,
+        "Industry Internships",
         "Technical Bootcamps"
       ],
       icon: "📈"
@@ -125,9 +61,9 @@ const AchievementsSection = () => {
                   <div className="education-card">
                     <div className="education-header">
                       <div className="education-main">
-                        <div className="education-type">{education.type}</div>
+                        <div className="education-type">{education.status}</div>
                         <h4 className="education-degree">{education.degree}</h4>
-                        <h5 className="education-institution">{education.institution}</h5>
+                        <h5 className="education-institution">{education.fullName || education.institution}</h5>
                         <div className="education-meta">
                           <span className="education-duration">{education.duration}</span>
                           <span className="education-location">{education.location}</span>
@@ -156,14 +92,14 @@ const AchievementsSection = () => {
         {/* Certifications Grid */}
         <div className="certifications-container">
           <h3 className="subsection-title">Professional Certifications</h3>
-          <CertificatesGrid certifications={certifications} />
+          <CertificatesGrid certifications={certificationsData} />
         </div>
 
         {/* Achievement Badges */}
         <div className="achievements-container">
           <h3 className="subsection-title">Key Achievements</h3>
           <div className="achievements-grid">
-            {achievements.map((achievement) => (
+            {processedAchievements.map((achievement) => (
               <div key={achievement.id} className="achievement-card">
                 <div className="achievement-icon">{achievement.icon}</div>
                 <div className="achievement-content">

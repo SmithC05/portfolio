@@ -107,7 +107,7 @@ const experienceData = [
   {
     id: 1,
     role: "Full-Stack Intern",
-    company: "Ziyack Technologies Private Limited",
+    company: "Znyck Technologies Private Limited",
     duration: "07/2025 - PRESENT",
     location: "Chennai",
     description: "Developing core product features using Node.js, Express.js, PostgreSQL, Supabase, with Dockerized workflows",

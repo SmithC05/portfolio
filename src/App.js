@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/Hero/HeroSection";
+import { useScrollAnimation } from "./components/Common/ScrollAnimations";
+import LazyImage from "./components/Common/LazyImage";
+import { initializeAccessibility } from "./utils/accessibility";
+import { addResourceHints, shouldUseReducedAnimations } from "./utils/performance";
 import "./App.css";
+import "./styles/animations.css";
+import "./styles/accessibility.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 // import profilePic from "./assets/profile.jpg"; // Moved to HeroSection component 
 import cert1 from "./assets/c-certificate.jpg";
@@ -20,6 +26,49 @@ import recognition from "./assets/certificate-seedstart.jpg";
 function App() {
   const [selectedCertificate, setSelectedCertificate] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  const [useReducedAnimations, setUseReducedAnimations] = useState(false);
+
+  // Scroll animation refs
+  const aboutRef = useScrollAnimation({ threshold: 0.2, once: true });
+  const skillsRef = useScrollAnimation({ threshold: 0.2, stagger: true, staggerDelay: 150, once: true });
+  const projectsRef = useScrollAnimation({ threshold: 0.1, stagger: true, staggerDelay: 200, once: true });
+  const certificatesRef = useScrollAnimation({ threshold: 0.1, stagger: true, staggerDelay: 100, once: true });
+  const contactRef = useScrollAnimation({ threshold: 0.2, once: true });
+
+  // Initialize performance and accessibility features
+  useEffect(() => {
+    // Add resource hints for better performance
+    addResourceHints();
+    
+    // Initialize accessibility features
+    initializeAccessibility();
+    
+    // Check if we should use reduced animations
+    setUseReducedAnimations(shouldUseReducedAnimations());
+    
+    // Register service worker for caching
+    import('./utils/performance').then(({ registerServiceWorker }) => {
+      registerServiceWorker();
+    });
+    
+    // Preload critical images
+    import('./utils/imageOptimization').then(({ preloadCriticalImages }) => {
+      const criticalImages = [
+        '/assets/profile.jpg',
+        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
+        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
+        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
+      ];
+      preloadCriticalImages(criticalImages);
+    });
+    
+    // Add performance monitoring in development
+    if (process.env.NODE_ENV === 'development') {
+      import('./utils/performance').then(({ setupPerformanceObserver }) => {
+        setupPerformanceObserver();
+      });
+    }
+  }, []);
 
   // Detect mobile device and screen size
   useEffect(() => {
@@ -121,12 +170,18 @@ function App() {
 
 
       <Navbar />
-      <section id="hero">
-        <HeroSection />
-      </section>
+      <main>
+        <section id="hero" aria-label="Hero section">
+          <HeroSection />
+        </section>
 
       {/* About Section */}
-      <section id="about" className="about">
+      <section 
+        id="about" 
+        className={`about animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+        ref={aboutRef}
+        aria-label="About me section"
+      >
         <h1>About Me</h1>
         <div className="about-content">
           <p>
@@ -143,35 +198,68 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="skills">
+      <section 
+        id="skills" 
+        className={`skills animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+        ref={skillsRef}
+        aria-label="Technical skills section"
+      >
         <h1>My Skills</h1>
         <div className="skills-container">
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" alt="C++" />
+          <div className="skill animate-stagger hover-lift">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" 
+              alt="C++" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>C++</p>
           </div>
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" />
+          <div className="skill animate-stagger hover-lift animate-delay-100">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" 
+              alt="JavaScript" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>JavaScript</p>
           </div>
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" />
+          <div className="skill animate-stagger hover-lift animate-delay-200">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" 
+              alt="React" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>React</p>
           </div>
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" />
+          <div className="skill animate-stagger hover-lift animate-delay-300">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" 
+              alt="Node.js" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>Node.js</p>
           </div>
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" />
+          <div className="skill animate-stagger hover-lift animate-delay-400">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" 
+              alt="MySQL" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>MySQL</p>
           </div>
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" />
+          <div className="skill animate-stagger hover-lift animate-delay-500">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" 
+              alt="MongoDB" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>MongoDB</p>
           </div>
-          <div className="skill">
-            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express.js" />
+          <div className="skill animate-stagger hover-lift animate-delay-600">
+            <LazyImage 
+              src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" 
+              alt="Express.js" 
+              fallbackSrc="/assets/icons/default-tech.svg"
+            />
             <p>Express.js</p>
           </div>
 
@@ -179,12 +267,17 @@ function App() {
       </section>
 
       {/* Projects Section */}
-<section id="projects" className="projects">
+      <section 
+        id="projects" 
+        className={`projects animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+        ref={projectsRef}
+        aria-label="Projects showcase section"
+      >
   <h1>My Projects</h1>
   <div className="projects-container">
 
     {/* Portfolio */}
-    <div className="project">
+    <div className="project animate-stagger hover-lift">
       <h2>Portfolio Website</h2>
       <p>My personal portfolio showcasing projects, skills, and achievements.</p>
       <a href="https://github.com/SmithC05/portfolio" target="_blank" rel="noopener noreferrer">
@@ -193,14 +286,14 @@ function App() {
     </div>
     
     {/*Chat App */}
-    <div class="project">
+    <div className="project animate-stagger hover-lift animate-delay-100">
   <h3>Chat App</h3>
   <p>A real-time chat application with user authentication and WebSocket-based messaging. Built with Node.js and Socket.io.</p>
   <a href="https://github.com/SmithC05/Chat" target="_blank"   rel="noopener noreferrer">🔗  View on GitHub</a> 
 </div>
 
 {/* Authenticated PDF Generator */}
-<div class="project">
+<div className="project animate-stagger hover-lift animate-delay-150">
   <h3>Authenticated PDF Generator</h3>
   <p>A tool to generate PDFs securely after user login, with plans for advanced features like image-to-PDF, merging, and splitting. Built using Node.js and MongoDB.</p>
   <a href="https://github.com/SmithC05/Pdf" target="_blank" rel="noopener noreferrer" >🔗 View on GitHub</a> 
@@ -208,7 +301,7 @@ function App() {
 
     
     {/* Online Bank Website */}
-    <div className="project">
+    <div className="project animate-stagger hover-lift animate-delay-200">
       <h2>Online Bank Website - "World Bank"</h2>
       <p>Designed a full-fledged banking website with an LED-style bank name display.</p>
       <a href="https://github.com/SmithC05/online-bank-website" target="_blank" rel="noopener noreferrer">
@@ -217,7 +310,7 @@ function App() {
     </div>
 
     {/* OD Approval & Announcement System */}
-    <div className="project">
+    <div className="project animate-stagger hover-lift animate-delay-300">
       <h2>OD Approval & Announcement System</h2>
       <p>A web-based platform for students and faculty to manage OD requests and announcements.</p>
       <a href="https://github.com/SmithC05/od-approval-system" target="_blank" rel="noopener noreferrer">
@@ -228,7 +321,7 @@ function App() {
     
 
     {/* MoCo Store */}
-    <div className="project">
+    <div className="project animate-stagger hover-lift animate-delay-400">
       <h2>MoCo Store</h2>
       <p>An e-commerce web application for managing and selling products online.</p>
       <a href="https://github.com/SmithC05/moco-store" target="_blank" rel="noopener noreferrer">
@@ -242,13 +335,19 @@ function App() {
 
 
    {/* Certificates Section */}
-   <section id="certificates" className="certificates">
+   <section 
+     id="certificates" 
+     className={`certificates animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+     ref={certificatesRef}
+     aria-label="Certifications and achievements section"
+   >
         <h1>My Certifications</h1>
         <div className="certificates-container">
           {certificates.map((cert, index) => (
             <div 
               key={index} 
-              className="certificate" 
+              className="certificate animate-stagger hover-lift" 
+              style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => handleCertificateClick(cert.image)}
               role="button"
               tabIndex={0}
@@ -260,7 +359,12 @@ function App() {
               }}
               aria-label={`View ${cert.title} certificate`}
             >
-              <img src={cert.image} alt={cert.title} loading="lazy" />
+              <LazyImage 
+                src={cert.image} 
+                alt={cert.title} 
+                fallbackSrc="/assets/icons/certificate-placeholder.svg"
+                placeholder={<div className="skeleton skeleton-image" />}
+              />
               <h2>{cert.title}</h2>
             </div>
           ))}
@@ -288,10 +392,10 @@ function App() {
             >
               &times;
             </button>
-            <img 
+            <LazyImage 
               src={selectedCertificate} 
               alt="Full Certificate" 
-              loading="lazy"
+              className="modal-image"
               onLoad={() => {
                 // Ensure image is fully loaded before showing
                 if (isMobile) {
@@ -310,7 +414,12 @@ function App() {
 
 
    {/* Contact Section */}
-<section id="contact" className="contact">
+   <section 
+     id="contact" 
+     className={`contact animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+     ref={contactRef}
+     aria-label="Contact information and form section"
+   >
   <h1>Contact Me</h1>
   <div className="contact-container">
     
@@ -354,23 +463,74 @@ function App() {
     {/* Contact Form */}
     <div className="contact-box">
       <h2>Send Me a Message</h2>
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Your Name" required />
-        <input type="email" name="email" placeholder="Your Email" required />
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
+      <form className="contact-form" onSubmit={handleSubmit} noValidate>
+        <div className="form-group">
+          <label htmlFor="contact-name" className="sr-only">Your Name</label>
+          <input 
+            type="text" 
+            id="contact-name"
+            name="name" 
+            placeholder="Your Name" 
+            required 
+            aria-required="true"
+            aria-describedby="name-error"
+          />
+          <div id="name-error" className="error-message" role="alert" aria-live="polite"></div>
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="contact-email" className="sr-only">Your Email</label>
+          <input 
+            type="email" 
+            id="contact-email"
+            name="email" 
+            placeholder="Your Email" 
+            required 
+            aria-required="true"
+            aria-describedby="email-error"
+          />
+          <div id="email-error" className="error-message" role="alert" aria-live="polite"></div>
+        </div>
+        
+        <div className="form-group">
+          <label htmlFor="contact-message" className="sr-only">Your Message</label>
+          <textarea 
+            id="contact-message"
+            name="message" 
+            placeholder="Your Message" 
+            required 
+            aria-required="true"
+            aria-describedby="message-error"
+            rows="5"
+          ></textarea>
+          <div id="message-error" className="error-message" role="alert" aria-live="polite"></div>
+        </div>
+        
+        <button 
+          type="submit" 
+          aria-describedby="form-status"
+          className="btn btn-primary"
+        >
+          Send Message
+        </button>
       </form>
       
       {/* Success/Error Message Popup */}
       {formStatus && (
-        <div className="form-status-popup">
+        <div 
+          id="form-status"
+          className="form-status-popup" 
+          role="alert" 
+          aria-live="assertive"
+          aria-atomic="true"
+        >
           <p>{formStatus}</p>
         </div>
       )}
     </div>
   </div>
 </section>
-
+      </main>
     </div>
   );
 }

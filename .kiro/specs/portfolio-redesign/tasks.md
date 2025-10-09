@@ -49,16 +49,25 @@
     - _Requirements: 1.1, 1.2_
 -
 
-- [ ] 4. Build professional experience and education sections
+- [x] 4. Build professional experience and education sections
 
 
 
-  - [ ] 4.1 Create ExperienceTimeline component
+
+
+
+
+
+  - [x] 4.1 Create ExperienceTimeline component
+
+
     - Implement interactive timeline with hover effects
     - Add detailed role descriptions with achievements
     - Include technology tags and company information
     - _Requirements: 1.1, 1.3, 3.1, 3.2_
-  - [ ] 4.2 Build EducationSection component
+  - [x] 4.2 Build EducationSection component
+
+
     - Display educational background with institutions and grades
     - Add timeline format for educational journey
     - Include relevant coursework and achievements

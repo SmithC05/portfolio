@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
+import HeroSection from "./components/Hero/HeroSection";
 import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import profilePic from "./assets/profile.jpg"; 
+// import profilePic from "./assets/profile.jpg"; // Moved to HeroSection component 
 import cert1 from "./assets/c-certificate.jpg";
 import toefl1 from "./assets/toefl-certificate1.jpg";
 import toefl2 from "./assets/toefl-certificate2.jpg";
@@ -67,17 +68,7 @@ function App() {
 
 
       <Navbar />
-      <section id="home" className="home">
-        <div className="content">
-          <h1>Hi, I'm <span>Smith C</span></h1>
-          <h2>Aspiring Software Engineer</h2>
-          <p>Passionate about building scalable applications and solving real-world problems.</p>
-          <a href="#projects" className="btn">View My Projects</a>
-        </div>
-        <div className="profile-image">
-          <img src={profilePic} alt="Smith C" />
-        </div>
-      </section>
+      <HeroSection />
 
       {/* About Section */}
       <section id="about" className="about">

@@ -1,0 +1,27 @@
+/* Default Theme Configuration */
+
+/* This file can be used to override design system variables for different themes */
+/* Currently using the default theme defined in globals.css */
+
+/* Example theme overrides:
+:root {
+  --color-primary: #your-custom-color;
+  --color-secondary: #your-custom-color;
+}
+*/
+
+/* Dark theme variations (for future use) */
+[data-theme="dark"] {
+  --color-background-primary: #0a0a0a;
+  --color-background-secondary: #1a1a1a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e0e0e0;
+}
+
+/* Light theme variations (for future use) */
+[data-theme="light"] {
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f8f9fa;
+  --color-text-primary: #333333;
+  --color-text-secondary: #666666;
+}

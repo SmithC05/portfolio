@@ -1,0 +1,14 @@
+/* Component-specific styles will be imported here as they are created */
+
+/* This file serves as a central import point for all component styles */
+/* Individual component CSS files will be imported here in later tasks */
+
+/* Example imports (to be added in later tasks):
+@import './hero.css';
+@import './about.css';
+@import './skills.css';
+@import './projects.css';
+@import './achievements.css';
+@import './contact.css';
+@import './common.css';
+*/

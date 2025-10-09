@@ -1,4 +1,113 @@
-/* Animated Counter styles will be implemented in later tasks */
+/* Animated Counter Component */
 .animated-counter {
-  /* Placeholder for animated counter styles */
+  display: inline-block;
+  position: relative;
+}
+
+.animated-counter__value {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  font-family: var(--font-family-mono);
+  text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+  transition: all var(--transition-base);
+  display: inline-block;
+  min-width: 1ch;
+}
+
+.animated-counter:hover .animated-counter__value {
+  transform: scale(1.05);
+  text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+}
+
+/* Size Variants */
+.animated-counter--small .animated-counter__value {
+  font-size: var(--font-size-2xl);
+}
+
+.animated-counter--large .animated-counter__value {
+  font-size: var(--font-size-5xl);
+}
+
+.animated-counter--xl .animated-counter__value {
+  font-size: var(--font-size-6xl);
+}
+
+/* Color Variants */
+.animated-counter--primary .animated-counter__value {
+  color: var(--color-primary);
+}
+
+.animated-counter--secondary .animated-counter__value {
+  color: var(--color-text-secondary);
+  text-shadow: none;
+}
+
+.animated-counter--white .animated-counter__value {
+  color: var(--color-text-primary);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Animation Effects */
+.animated-counter--pulse .animated-counter__value {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animated-counter--glow .animated-counter__value {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 204, 0, 0.6), 0 0 30px rgba(255, 204, 0, 0.4);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .animated-counter__value {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .animated-counter--small .animated-counter__value {
+    font-size: var(--font-size-xl);
+  }
+  
+  .animated-counter--large .animated-counter__value {
+    font-size: var(--font-size-4xl);
+  }
+  
+  .animated-counter--xl .animated-counter__value {
+    font-size: var(--font-size-5xl);
+  }
+}
+
+@media (max-width: 480px) {
+  .animated-counter__value {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .animated-counter--small .animated-counter__value {
+    font-size: var(--font-size-lg);
+  }
+  
+  .animated-counter--large .animated-counter__value {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .animated-counter--xl .animated-counter__value {
+    font-size: var(--font-size-4xl);
+  }
 }

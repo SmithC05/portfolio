@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/Hero/HeroSection";
 import "./App.css";
@@ -18,10 +18,40 @@ import recognition from "./assets/certificate-seedstart.jpg";
 
 
 function App() {
-  
-
-  
   const [selectedCertificate, setSelectedCertificate] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device and screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Prevent body scroll when modal is open (mobile optimization)
+  useEffect(() => {
+    if (selectedCertificate) {
+      document.body.style.overflow = 'hidden';
+      // Prevent iOS Safari bounce
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+    } else {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    }
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.width = '';
+    };
+  }, [selectedCertificate]);
   const certificates = [
     { title: "C Programming Certificate", image: cert1 },
     { title: "TOEFL Certificate (Achievement)", image: toefl1 },
@@ -40,6 +70,11 @@ function App() {
       e.preventDefault();
       const formData = new FormData(e.target);
     
+      // Show loading state on mobile
+      if (isMobile) {
+        setFormStatus("Sending message...");
+      }
+    
       fetch("https://formspree.io/f/movealqk", {
         method: "POST",
         body: formData,
@@ -51,11 +86,29 @@ function App() {
         if (response.ok) {
           setFormStatus("Message sent successfully!");
           e.target.reset();
+          // Auto-hide success message on mobile after 3 seconds
+          if (isMobile) {
+            setTimeout(() => setFormStatus(""), 3000);
+          }
         } else {
           setFormStatus("Failed to send message. Try again.");
         }
       })
       .catch(() => setFormStatus("Error sending message."));
+    };
+
+    // Handle certificate modal with mobile optimizations
+    const handleCertificateClick = (certificateImage) => {
+      setSelectedCertificate(certificateImage);
+      
+      // Add haptic feedback on mobile (if supported)
+      if (isMobile && navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    };
+
+    const handleModalClose = () => {
+      setSelectedCertificate(null);
     };
     
 
@@ -68,7 +121,9 @@ function App() {
 
 
       <Navbar />
-      <HeroSection />
+      <section id="hero">
+        <HeroSection />
+      </section>
 
       {/* About Section */}
       <section id="about" className="about">
@@ -191,8 +246,21 @@ function App() {
         <h1>My Certifications</h1>
         <div className="certificates-container">
           {certificates.map((cert, index) => (
-            <div key={index} className="certificate" onClick={() => setSelectedCertificate(cert.image)}>
-              <img src={cert.image} alt={cert.title} />
+            <div 
+              key={index} 
+              className="certificate" 
+              onClick={() => handleCertificateClick(cert.image)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleCertificateClick(cert.image);
+                }
+              }}
+              aria-label={`View ${cert.title} certificate`}
+            >
+              <img src={cert.image} alt={cert.title} loading="lazy" />
               <h2>{cert.title}</h2>
             </div>
           ))}
@@ -201,10 +269,40 @@ function App() {
 
       {/* Modal for Full-Screen Certificate */}
       {selectedCertificate && (
-        <div className="modal" onClick={() => setSelectedCertificate(null)}>
-          <div className="modal-content">
-            <span className="close" onClick={() => setSelectedCertificate(null)}>&times;</span>
-            <img src={selectedCertificate} alt="Full Certificate" />
+        <div 
+          className="modal" 
+          onClick={handleModalClose}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Certificate viewer"
+        >
+          <div 
+            className="modal-content" 
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="close"
+              onClick={handleModalClose}
+              aria-label="Close certificate viewer"
+              type="button"
+            >
+              &times;
+            </button>
+            <img 
+              src={selectedCertificate} 
+              alt="Full Certificate" 
+              loading="lazy"
+              onLoad={() => {
+                // Ensure image is fully loaded before showing
+                if (isMobile) {
+                  // Add slight delay for better mobile experience
+                  setTimeout(() => {
+                    const img = document.querySelector('.modal img');
+                    if (img) img.style.opacity = '1';
+                  }, 100);
+                }
+              }}
+            />
           </div>
         </div>
       )}
@@ -216,57 +314,60 @@ function App() {
   <h1>Contact Me</h1>
   <div className="contact-container">
     
-    {/* Phone */}
-    <div className="contact-item">
-      <i className="fas fa-phone-alt"></i>
-      <p>+91 9361491329</p>
-    </div>
+    {/* Contact Information Grid */}
+    <div className="contact-items-grid">
+      {/* Phone */}
+      <div className="contact-item">
+        <i className="fas fa-phone-alt"></i>
+        <p>+91 9361491329</p>
+      </div>
 
-    {/* Personal Email */}
-    <div className="contact-item">
-      <i className="fas fa-envelope"></i>
-      <p>
-        <a href="mailto:mrsmithcit@gmail.com">mrsmithcit@gmail.com</a>
-      </p>
-    </div>
+      {/* Personal Email */}
+      <div className="contact-item">
+        <i className="fas fa-envelope"></i>
+        <p>
+          <a href="mailto:mrsmithcit@gmail.com">mrsmithcit@gmail.com</a>
+        </p>
+      </div>
 
-    {/* LinkedIn */}
-    <div className="contact-item">
-      <i className="fab fa-linkedin"></i>
-      <p>
-        <a href="https://linkedin.com/in/mrsmithc" target="_blank" rel="noopener noreferrer">
-          Smith C
-        </a>
-      </p>
-    </div>
+      {/* LinkedIn */}
+      <div className="contact-item">
+        <i className="fab fa-linkedin"></i>
+        <p>
+          <a href="https://linkedin.com/in/mrsmithc" target="_blank" rel="noopener noreferrer">
+            Smith C
+          </a>
+        </p>
+      </div>
 
-    {/* GitHub */}
-    <div className="contact-item">
-      <i className="fab fa-github"></i>
-      <p>
-        <a href="https://github.com/SmithC05" target="_blank" rel="noopener noreferrer">
-          SmithC05
-        </a>
-      </p>
+      {/* GitHub */}
+      <div className="contact-item">
+        <i className="fab fa-github"></i>
+        <p>
+          <a href="https://github.com/SmithC05" target="_blank" rel="noopener noreferrer">
+            SmithC05
+          </a>
+        </p>
+      </div>
     </div>
 
     {/* Contact Form */}
-<div className="contact-box">
-  <h2>Send Me a Message</h2>
-  <form className="contact-form" onSubmit={handleSubmit}>
-    <input type="text" name="name" placeholder="Your Name" required />
-    <input type="email" name="email" placeholder="Your Email" required />
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-  
-  {/* Success/Error Message Popup */}
-  {formStatus && (
-    <div className="form-status-popup">
-      <p>{formStatus}</p>
+    <div className="contact-box">
+      <h2>Send Me a Message</h2>
+      <form className="contact-form" onSubmit={handleSubmit}>
+        <input type="text" name="name" placeholder="Your Name" required />
+        <input type="email" name="email" placeholder="Your Email" required />
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      
+      {/* Success/Error Message Popup */}
+      {formStatus && (
+        <div className="form-status-popup">
+          <p>{formStatus}</p>
+        </div>
+      )}
     </div>
-  )}
-</div>
   </div>
 </section>
 

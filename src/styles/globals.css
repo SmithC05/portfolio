@@ -339,6 +339,91 @@ body {
   outline-offset: 2px;
 }
 
+/* Mobile-specific optimizations */
+@media (max-width: 768px) {
+  /* Improve touch targets */
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--spacing-3) var(--spacing-4);
+  }
+  
+  /* Better text readability on mobile */
+  body {
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-relaxed);
+  }
+  
+  /* Optimize spacing for mobile */
+  .section {
+    padding: var(--spacing-6) 0;
+  }
+  
+  .container {
+    padding: 0 var(--spacing-3);
+  }
+  
+  /* Mobile-friendly cards */
+  .card {
+    padding: var(--spacing-3);
+    margin-bottom: var(--spacing-3);
+  }
+  
+  /* Better mobile typography */
+  h1, .text-4xl, .text-5xl, .text-6xl {
+    line-height: var(--line-height-tight);
+  }
+}
+
+/* Touch-friendly enhancements */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets */
+  .btn,
+  .card,
+  .nav-links a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Remove hover effects on touch devices */
+  .btn:hover,
+  .card:hover {
+    transform: none;
+  }
+  
+  /* Add active states for touch feedback */
+  .btn:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+  }
+  
+  .card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Sharper borders and shadows */
+  .card,
+  .btn {
+    border-width: 0.5px;
+  }
+}
+
+/* Landscape mobile orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .section {
+    padding: var(--spacing-4) 0;
+  }
+  
+  /* Reduce vertical spacing in landscape */
+  .home {
+    min-height: 100vh;
+    padding: var(--spacing-2) var(--spacing-4);
+  }
+}
+
 /* Reduced motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {

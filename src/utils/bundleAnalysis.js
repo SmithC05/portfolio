@@ -295,12 +295,23 @@ export const initializeBundleAnalysis = () => {
       }, 1000);
     });
 
-    // Monitor performance over time
-    setInterval(() => {
-      const metrics = bundleAnalysis.getPerformanceMetrics();
-      if (metrics?.memoryUsage && metrics.memoryUsage.used > 50) {
-        console.warn('⚠️ High memory usage detected:', `${metrics.memoryUsage.used}MB`);
-      }
-    }, 30000); // Check every 30 seconds
+    // Monitor performance over time (only in development and for limited time)
+    if (process.env.NODE_ENV === 'development') {
+      let monitoringCount = 0;
+      const maxMonitoringCycles = 10; // Stop after 10 cycles (5 minutes)
+      
+      const performanceMonitor = setInterval(() => {
+        const metrics = bundleAnalysis.getPerformanceMetrics();
+        if (metrics?.memoryUsage && metrics.memoryUsage.used > 50) {
+          console.warn('⚠️ High memory usage detected:', `${metrics.memoryUsage.used}MB`);
+        }
+        
+        monitoringCount++;
+        if (monitoringCount >= maxMonitoringCycles) {
+          clearInterval(performanceMonitor);
+          console.log('🔍 Performance monitoring completed');
+        }
+      }, 30000); // Check every 30 seconds
+    }
   }
 };

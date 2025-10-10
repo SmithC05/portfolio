@@ -62,13 +62,13 @@ const ProjectModal = ({ project, onClose, allProjects, onNavigate }) => {
   const getCategoryIcon = (category) => {
     switch (category) {
       case 'full-stack':
-        return '🌐';
+        return 'fas fa-globe';
       case 'backend':
-        return '⚙️';
+        return 'fas fa-server';
       case 'real-time':
-        return '⚡';
+        return 'fas fa-bolt';
       default:
-        return '🚀';
+        return 'fas fa-rocket';
     }
   };
 
@@ -124,7 +124,7 @@ const ProjectModal = ({ project, onClose, allProjects, onNavigate }) => {
               <div className="project-modal__meta">
                 <span className="project-modal__category">
                   <span className="project-modal__category-icon">
-                    {getCategoryIcon(category)}
+                    <i className={getCategoryIcon(category)}></i>
                   </span>
                   {category.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
                 </span>
@@ -138,16 +138,34 @@ const ProjectModal = ({ project, onClose, allProjects, onNavigate }) => {
             </div>
           </div>
 
-          {/* Image */}
+          {/* Image - Certificate Style */}
           <div className="project-modal__image-container">
-            <img 
-              src={image} 
-              alt={`${title} preview`}
-              className="project-modal__image"
-              onError={(e) => {
-                e.target.src = '/assets/images/project-placeholder.jpg';
-              }}
-            />
+            <div className="corner-decoration"></div>
+            <div className="corner-decoration"></div>
+            <div className="corner-decoration"></div>
+            <div className="corner-decoration"></div>
+            
+            {image ? (
+              <img 
+                src={image}
+                alt={`${title} preview`}
+                className="project-modal__image"
+              />
+            ) : (
+              <div className="project-modal__image-placeholder">
+                <div className="project-modal__placeholder-content">
+                  <div className="project-modal__placeholder-icon">
+                    <i className="fas fa-code"></i>
+                  </div>
+                  <span className="project-modal__placeholder-text">Project Preview</span>
+                  <p className="project-modal__placeholder-subtitle">Professional showcase coming soon</p>
+                  <div className="project-modal__placeholder-badge">
+                    <i className="fas fa-certificate"></i>
+                    <span>Premium Project</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Description */}
@@ -163,7 +181,9 @@ const ProjectModal = ({ project, onClose, allProjects, onNavigate }) => {
               <ul className="project-modal__features">
                 {features.map((feature, index) => (
                   <li key={index} className="project-modal__feature">
-                    <span className="project-modal__feature-icon">✨</span>
+                    <span className="project-modal__feature-icon">
+                      <i className="fas fa-star"></i>
+                    </span>
                     {feature}
                   </li>
                 ))}
@@ -178,7 +198,9 @@ const ProjectModal = ({ project, onClose, allProjects, onNavigate }) => {
               <ul className="project-modal__highlights">
                 {highlights.map((highlight, index) => (
                   <li key={index} className="project-modal__highlight">
-                    <span className="project-modal__highlight-icon">🎯</span>
+                    <span className="project-modal__highlight-icon">
+                      <i className="fas fa-bullseye"></i>
+                    </span>
                     {highlight}
                   </li>
                 ))}

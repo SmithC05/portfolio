@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -12,6 +12,8 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error', or null
+  const [touched, setTouched] = useState({});
+  const [formProgress, setFormProgress] = useState(0);
 
   // Validation rules
   const validateField = (name, value) => {
@@ -43,6 +45,14 @@ const ContactForm = () => {
     }
   };
 
+  // Calculate form completion progress
+  useEffect(() => {
+    const fields = Object.keys(formData);
+    const filledFields = fields.filter(field => formData[field].trim() !== '');
+    const progress = (filledFields.length / fields.length) * 100;
+    setFormProgress(progress);
+  }, [formData]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -50,17 +60,40 @@ const ContactForm = () => {
       [name]: value
     }));
 
-    // Real-time validation
-    const error = validateField(name, value);
-    setErrors(prev => ({
+    // Mark field as touched
+    setTouched(prev => ({
       ...prev,
-      [name]: error
+      [name]: true
     }));
+
+    // Real-time validation only for touched fields
+    if (touched[name] || value.trim() !== '') {
+      const error = validateField(name, value);
+      setErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
 
     // Clear submit status when user starts typing
     if (submitStatus) {
       setSubmitStatus(null);
     }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched(prev => ({
+      ...prev,
+      [name]: true
+    }));
+
+    // Validate on blur
+    const error = validateField(name, value);
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
   };
 
   const validateForm = () => {
@@ -100,6 +133,8 @@ const ContactForm = () => {
         message: ''
       });
       setErrors({});
+      setTouched({});
+      setFormProgress(0);
       
     } catch (error) {
       console.error('Form submission error:', error);
@@ -112,10 +147,25 @@ const ContactForm = () => {
   return (
     <div className="contact-form-component">
       <div className="contact-form-card">
-        <h3 className="form-title">Send me a message</h3>
-        <p className="form-subtitle">
-          I'd love to hear from you. Send me a message and I'll respond as soon as possible.
-        </p>
+        <div className="form-header">
+          <h3 className="form-title">Send me a message</h3>
+          <p className="form-subtitle">
+            I'd love to hear from you. Send me a message and I'll respond as soon as possible.
+          </p>
+          
+          {/* Form Progress Bar */}
+          <div className="form-progress">
+            <div className="form-progress-label">
+              Form completion: {Math.round(formProgress)}%
+            </div>
+            <div className="form-progress-bar">
+              <div 
+                className="form-progress-fill" 
+                style={{ width: `${formProgress}%` }}
+              ></div>
+            </div>
+          </div>
+        </div>
 
         {submitStatus === 'success' && (
           <div className="alert alert-success">
@@ -153,7 +203,8 @@ const ContactForm = () => {
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className={`form-input ${errors.name ? 'error' : ''}`}
+                onBlur={handleBlur}
+                className={`form-input ${errors.name ? 'error' : ''} ${formData.name && !errors.name ? 'valid' : ''}`}
                 placeholder="Your full name"
                 aria-describedby={errors.name ? 'name-error' : undefined}
                 disabled={isSubmitting}
@@ -175,7 +226,8 @@ const ContactForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`form-input ${errors.email ? 'error' : ''}`}
+                onBlur={handleBlur}
+                className={`form-input ${errors.email ? 'error' : ''} ${formData.email && !errors.email ? 'valid' : ''}`}
                 placeholder="your.email@example.com"
                 aria-describedby={errors.email ? 'email-error' : undefined}
                 disabled={isSubmitting}
@@ -198,7 +250,8 @@ const ContactForm = () => {
               name="subject"
               value={formData.subject}
               onChange={handleInputChange}
-              className={`form-input ${errors.subject ? 'error' : ''}`}
+              onBlur={handleBlur}
+              className={`form-input ${errors.subject ? 'error' : ''} ${formData.subject && !errors.subject ? 'valid' : ''}`}
               placeholder="What's this about?"
               aria-describedby={errors.subject ? 'subject-error' : undefined}
               disabled={isSubmitting}
@@ -219,7 +272,8 @@ const ContactForm = () => {
               name="message"
               value={formData.message}
               onChange={handleInputChange}
-              className={`form-textarea ${errors.message ? 'error' : ''}`}
+              onBlur={handleBlur}
+              className={`form-textarea ${errors.message ? 'error' : ''} ${formData.message && !errors.message ? 'valid' : ''}`}
               placeholder="Tell me about your project, question, or just say hello..."
               rows="6"
               aria-describedby={errors.message ? 'message-error' : undefined}

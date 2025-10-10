@@ -4,31 +4,31 @@ export const skillsData = {
     { 
       name: "React.js", 
       proficiency: 85, 
-      icon: "react-icon.svg",
+      icon: "fab fa-react",
       description: "Building dynamic user interfaces and single-page applications"
     },
     { 
       name: "JavaScript", 
       proficiency: 90, 
-      icon: "js-icon.svg",
+      icon: "fab fa-js-square",
       description: "Modern ES6+ JavaScript for frontend and backend development"
     },
     { 
       name: "TypeScript", 
       proficiency: 80, 
-      icon: "ts-icon.svg",
+      icon: "fas fa-code",
       description: "Type-safe JavaScript development for large-scale applications"
     },
     { 
       name: "HTML/CSS", 
       proficiency: 95, 
-      icon: "html-icon.svg",
+      icon: "fab fa-html5",
       description: "Semantic HTML and modern CSS including Flexbox and Grid"
     },
     { 
       name: "Responsive Design", 
       proficiency: 88, 
-      icon: "responsive-icon.svg",
+      icon: "fas fa-mobile-alt",
       description: "Mobile-first responsive web design principles"
     }
   ],
@@ -36,31 +36,31 @@ export const skillsData = {
     { 
       name: "Node.js", 
       proficiency: 88, 
-      icon: "nodejs-icon.svg",
+      icon: "fab fa-node-js",
       description: "Server-side JavaScript runtime for scalable applications"
     },
     { 
       name: "Express.js", 
       proficiency: 85, 
-      icon: "express-icon.svg",
+      icon: "fas fa-server",
       description: "Fast and minimalist web framework for Node.js"
     },
     { 
       name: "Python", 
       proficiency: 80, 
-      icon: "python-icon.svg",
+      icon: "fab fa-python",
       description: "Backend development and automation scripting"
     },
     { 
       name: "Java", 
       proficiency: 75, 
-      icon: "java-icon.svg",
+      icon: "fab fa-java",
       description: "Object-oriented programming and enterprise applications"
     },
     { 
       name: "C/C++", 
       proficiency: 82, 
-      icon: "cpp-icon.svg",
+      icon: "fas fa-code",
       description: "System programming and competitive programming"
     }
   ],
@@ -68,25 +68,25 @@ export const skillsData = {
     { 
       name: "MongoDB", 
       proficiency: 85, 
-      icon: "mongodb-icon.svg",
+      icon: "fas fa-database",
       description: "NoSQL database for flexible document storage"
     },
     { 
       name: "PostgreSQL", 
       proficiency: 80, 
-      icon: "postgresql-icon.svg",
+      icon: "fas fa-database",
       description: "Advanced relational database with modern features"
     },
     { 
       name: "MySQL", 
       proficiency: 75, 
-      icon: "mysql-icon.svg",
+      icon: "fas fa-database",
       description: "Traditional relational database management"
     },
     { 
       name: "Supabase", 
       proficiency: 78, 
-      icon: "supabase-icon.svg",
+      icon: "fas fa-cloud-upload-alt",
       description: "Open-source Firebase alternative with PostgreSQL"
     }
   ],
@@ -94,31 +94,31 @@ export const skillsData = {
     { 
       name: "Git/GitHub", 
       proficiency: 90, 
-      icon: "git-icon.svg",
+      icon: "fab fa-git-alt",
       description: "Version control and collaborative development"
     },
     { 
       name: "Docker", 
       proficiency: 75, 
-      icon: "docker-icon.svg",
+      icon: "fab fa-docker",
       description: "Containerization and deployment workflows"
     },
     { 
       name: "VS Code", 
       proficiency: 95, 
-      icon: "vscode-icon.svg",
+      icon: "fas fa-code",
       description: "Primary development environment and extensions"
     },
     { 
       name: "Postman", 
       proficiency: 85, 
-      icon: "postman-icon.svg",
+      icon: "fas fa-paper-plane",
       description: "API testing and development tools"
     },
     { 
       name: "Linux", 
       proficiency: 70, 
-      icon: "linux-icon.svg",
+      icon: "fab fa-linux",
       description: "Command line operations and server management"
     }
   ]

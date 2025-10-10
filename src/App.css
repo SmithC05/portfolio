@@ -25,29 +25,105 @@
   top: 6px;
 }
 
-/* Running Marquee Banner */
+/* Modern Professional Banner */
 .marquee {
   width: 100%;
-  background: var(--color-primary);
-  color: var(--color-text-dark);
-  padding: var(--spacing-2) 0;
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.95) 25%, 
+    rgba(139, 92, 246, 0.15) 50%, 
+    rgba(30, 41, 59, 0.95) 75%, 
+    rgba(15, 23, 42, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(139, 92, 246, 0.2);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  color: #ffffff;
   overflow: hidden;
   position: fixed;
-  top: 0;
+  top: 75px;
   left: 0;
-  z-index: var(--z-fixed);
+  z-index: 998;
   white-space: nowrap;
   display: flex;
-  box-shadow: var(--shadow-sm);
+  align-items: center;
+  box-shadow: 
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 40px rgba(139, 92, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  margin: 0;
+  height: 36px;
+  position: relative;
+}
+
+.marquee::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(139, 92, 246, 0.1) 25%, 
+    rgba(59, 130, 246, 0.1) 50%, 
+    rgba(139, 92, 246, 0.1) 75%, 
+    transparent 100%);
+  animation: shimmerFlow 8s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .marquee p {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-size: 1rem;
+  font-weight: 600;
   display: inline-block;
   padding-left: 100%;
-  animation: marquee-scroll 15s linear infinite;
+  animation: marquee-scroll 25s linear infinite;
   line-height: 1;
+  letter-spacing: 0.8px;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  margin: 0;
+  white-space: nowrap;
+}
+
+@keyframes shimmerFlow {
+  0%, 100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(100%);
+    opacity: 1;
+  }
+}
+
+/* Responsive marquee adjustments */
+@media (max-width: 768px) {
+  .marquee {
+    top: 64px;
+    height: 32px;
+    justify-content: center;
+  }
+  
+  .marquee p {
+    font-size: 0.875rem;
+    animation: marquee-scroll 30s linear infinite;
+    letter-spacing: 0.6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .marquee {
+    top: 59px;
+    height: 28px;
+    justify-content: center;
+  }
+  
+  .marquee p {
+    font-size: 0.8rem;
+    animation: marquee-scroll 35s linear infinite;
+    letter-spacing: 0.4px;
+  }
 }
 
 @keyframes marquee-scroll {
@@ -61,12 +137,14 @@
 
 /* Main Content */
 #main-content {
-  padding-top: 60px; /* Account for fixed marquee */
+  padding-top: 111px; /* Account for navbar (75px) + marquee (36px) */
+  margin: 0;
+  border: none;
 }
 
 /* Global Body Adjustments */
 body {
-  padding-top: 60px; /* Account for fixed navbar + marquee */
+  padding-top: 0; /* Remove body padding, use main content padding instead */
   overflow-x: hidden;
 }
 
@@ -109,7 +187,7 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Animation Classes */
+/* Animation Classes - No Background Overlay */
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
@@ -188,7 +266,7 @@ footer {
   }
   
   #main-content {
-    padding-top: 50px;
+    padding-top: 96px; /* Mobile: navbar (64px) + marquee (32px) */
   }
   
   .marquee {
@@ -227,7 +305,7 @@ footer {
   }
   
   #main-content {
-    padding-top: 45px;
+    padding-top: 87px; /* Small mobile: navbar (59px) + marquee (28px) */
   }
   
   .marquee p {

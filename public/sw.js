@@ -24,7 +24,7 @@ const DYNAMIC_ASSETS = [
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
   console.log('Service Worker installing...');
-  
+
   event.waitUntil(
     caches.open(STATIC_CACHE)
       .then((cache) => {
@@ -43,7 +43,7 @@ self.addEventListener('install', (event) => {
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   console.log('Service Worker activating...');
-  
+
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
@@ -66,12 +66,12 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
-  
+
   // Skip non-GET requests
   if (request.method !== 'GET') {
     return;
   }
-  
+
   // Handle different types of requests
   if (request.destination === 'image') {
     event.respondWith(handleImageRequest(request));
@@ -87,22 +87,22 @@ async function handleImageRequest(request) {
   try {
     const cache = await caches.open(DYNAMIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       // Cache successful image responses
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     console.error('Image request failed:', error);
-    
+
     // Return fallback image
     return new Response(
       '<svg width="200" height="150" xmlns="http://www.w3.org/2000/svg"><rect width="100%" height="100%" fill="#f0f0f0"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" fill="#999">Image not available</text></svg>',
@@ -121,29 +121,29 @@ async function handleStaticRequest(request) {
   try {
     const cache = await caches.open(STATIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       cache.put(request, networkResponse.clone());
     }
-    
+
     return networkResponse;
   } catch (error) {
     console.error('Static request failed:', error);
-    
+
     // Return cached version if available
     const cache = await caches.open(STATIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     // Return offline page for navigation requests
     if (request.mode === 'navigate') {
       return new Response(
@@ -171,7 +171,7 @@ async function handleStaticRequest(request) {
         }
       );
     }
-    
+
     throw error;
   }
 }
@@ -181,31 +181,31 @@ async function handleExternalRequest(request) {
   try {
     const cache = await caches.open(DYNAMIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     const networkResponse = await fetch(request);
-    
+
     if (networkResponse.ok) {
       // Cache external assets with longer TTL
       const responseToCache = networkResponse.clone();
       cache.put(request, responseToCache);
     }
-    
+
     return networkResponse;
   } catch (error) {
     console.error('External request failed:', error);
-    
+
     // Return cached version if available
     const cache = await caches.open(DYNAMIC_CACHE);
     const cachedResponse = await cache.match(request);
-    
+
     if (cachedResponse) {
       return cachedResponse;
     }
-    
+
     throw error;
   }
 }
@@ -222,7 +222,7 @@ async function syncContactForm() {
   try {
     const cache = await caches.open('form-submissions');
     const requests = await cache.keys();
-    
+
     for (const request of requests) {
       try {
         const response = await fetch(request);
@@ -242,7 +242,7 @@ async function syncContactForm() {
 self.addEventListener('push', (event) => {
   if (event.data) {
     const data = event.data.json();
-    
+
     const options = {
       body: data.body,
       icon: '/favicon.ico',
@@ -251,7 +251,7 @@ self.addEventListener('push', (event) => {
       data: data.data || {},
       actions: data.actions || []
     };
-    
+
     event.waitUntil(
       self.registration.showNotification(data.title, options)
     );
@@ -261,7 +261,7 @@ self.addEventListener('push', (event) => {
 // Notification click handling
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  
+
   if (event.action) {
     // Handle action buttons
     console.log('Notification action clicked:', event.action);
@@ -278,7 +278,7 @@ self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
-  
+
   if (event.data && event.data.type === 'CACHE_URLS') {
     event.waitUntil(
       caches.open(DYNAMIC_CACHE)

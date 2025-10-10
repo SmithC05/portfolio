@@ -1,6 +1,8 @@
-/* Achievements Section */
+/* Modern Achievements Section - Dark Theme with Floating Orbs */
 .achievements-section {
-  background: var(--color-background-primary);
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  min-height: 100vh;
+  padding: 5rem 0;
   position: relative;
   overflow: hidden;
 }
@@ -12,443 +14,854 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, 
-    rgba(15, 52, 96, 0.05) 0%, 
-    rgba(26, 26, 46, 0.05) 50%, 
-    rgba(15, 52, 96, 0.05) 100%);
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(37, 99, 235, 0.05) 0%, transparent 50%);
   pointer-events: none;
 }
 
-.subsection-title {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-6);
-  text-align: center;
-  position: relative;
-}
-
-.subsection-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 3px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-  border-radius: var(--border-radius-full);
-}
-
-/* Education Timeline */
-.education-timeline-container {
-  margin-bottom: var(--spacing-10);
-  position: relative;
-  z-index: 1;
-}
-
-.education-timeline {
-  max-width: 800px;
+.container {
+  max-width: 1200px;
   margin: 0 auto;
-  position: relative;
+  padding: 0 2rem;
 }
 
-.education-item {
-  display: flex;
-  margin-bottom: var(--spacing-6);
-  position: relative;
-}
-
-.education-marker {
-  position: relative;
-  margin-right: var(--spacing-4);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.education-dot {
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, var(--color-accent), var(--color-secondary));
-  border-radius: 50%;
-  border: 3px solid var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.2);
-  z-index: 2;
-  transition: all var(--transition-base);
-}
-
-.education-line {
-  width: 2px;
-  height: 80px;
-  background: linear-gradient(to bottom, 
-    var(--color-accent), 
-    rgba(15, 52, 96, 0.3));
-  margin-top: 8px;
-}
-
-.education-content {
-  flex: 1;
-}
-
-.education-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 204, 0, 0.2);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-4);
-  transition: all var(--transition-base);
-  backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-}
-
-.education-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 204, 0, 0.1), 
-    transparent);
-  transition: left 0.6s ease;
-}
-
-.education-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(15, 52, 96, 0.2);
-  border-color: rgba(255, 204, 0, 0.4);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.education-card:hover::before {
-  left: 100%;
-}
-
-.education-card:hover .education-dot {
-  transform: scale(1.2);
-  box-shadow: 0 0 0 6px rgba(255, 204, 0, 0.3);
-}
-
-.education-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.education-main {
-  flex: 1;
-}
-
-.education-type {
-  color: var(--color-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: var(--spacing-1);
-  padding: 0.25rem 0.75rem;
-  background: rgba(255, 204, 0, 0.1);
-  border-radius: var(--border-radius-full);
-  display: inline-block;
-  border: 1px solid rgba(255, 204, 0, 0.2);
-}
-
-.education-degree {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  margin: var(--spacing-1) 0;
-  line-height: var(--line-height-tight);
-}
-
-.education-institution {
-  color: var(--color-primary);
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-medium);
-  margin: var(--spacing-1) 0;
-}
-
-.education-meta {
-  display: flex;
-  gap: var(--spacing-2);
-  flex-wrap: wrap;
-  margin-top: var(--spacing-2);
-}
-
-.education-duration,
-.education-location {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-  padding: 0.25rem 0.75rem;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: var(--border-radius-full);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.education-status {
-  font-size: var(--font-size-sm);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--border-radius-full);
-  font-weight: var(--font-weight-medium);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.education-status.current {
-  background: rgba(34, 197, 94, 0.2);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.education-status.completed {
-  background: rgba(59, 130, 246, 0.2);
-  color: #3b82f6;
-  border: 1px solid rgba(59, 130, 246, 0.3);
-}
-
-.education-grade {
-  text-align: center;
-  margin-left: var(--spacing-2);
-}
-
-.grade-label {
-  color: var(--color-accent);
-  font-size: var(--font-size-xs);
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 0.25rem;
-}
-
-.grade-value {
-  color: var(--color-primary);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  background: linear-gradient(135deg, 
-    rgba(255, 204, 0, 0.1), 
-    rgba(255, 204, 0, 0.05));
-  padding: var(--spacing-2) var(--spacing-3);
-  border-radius: var(--border-radius-base);
-  border: 2px solid rgba(255, 204, 0, 0.3);
-  min-width: 80px;
-}
-
-/* Certifications Container */
-.certifications-container {
-  margin-bottom: var(--spacing-10);
+/* Achievement Statistics */
+.achievements-stats {
+  margin: 3rem 0;
   position: relative;
   z-index: 1;
 }
 
-/* Achievements Grid */
-.achievements-container {
-  position: relative;
-  z-index: 1;
-}
-
-.achievements-grid {
+.achievements-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: var(--spacing-6);
-  margin-top: var(--spacing-6);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
-.achievement-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 204, 0, 0.2);
-  border-radius: var(--border-radius-lg);
-  padding: var(--spacing-5);
-  transition: all var(--transition-base);
+.achievement-stat-card {
+  background: rgba(139, 92, 246, 0.1);
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   position: relative;
   overflow: hidden;
 }
 
-.achievement-card::before {
+.achievement-stat-card::before {
   content: '';
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, 
-    transparent, 
-    rgba(255, 204, 0, 0.1), 
-    transparent);
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.15), transparent);
   transition: left 0.6s ease;
 }
 
-.achievement-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px rgba(15, 52, 96, 0.25);
-  border-color: rgba(255, 204, 0, 0.4);
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.achievement-card:hover::before {
+.achievement-stat-card:hover::before {
   left: 100%;
 }
 
-.achievement-icon {
-  font-size: 3rem;
-  margin-bottom: var(--spacing-3);
-  text-align: center;
+.achievement-stat-card:hover {
+  background: rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
 }
 
-.achievement-content {
-  text-align: center;
-}
-
-.achievement-title {
-  color: var(--color-text-primary);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-semibold);
-  margin-bottom: var(--spacing-2);
-}
-
-.achievement-description {
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-base);
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--spacing-4);
-}
-
-.achievement-badges {
+.achievement-stat-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  border-radius: 12px;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing-2);
+  align-items: center;
   justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  flex-shrink: 0;
 }
 
-.achievement-badge {
-  background: linear-gradient(135deg, 
-    rgba(255, 204, 0, 0.2), 
-    rgba(255, 204, 0, 0.1));
-  color: var(--color-text-primary);
-  padding: 0.375rem 0.875rem;
-  border-radius: var(--border-radius-full);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  border: 1px solid rgba(255, 204, 0, 0.3);
-  transition: all var(--transition-base);
+.achievement-stat-content {
+  flex: 1;
+}
+
+.achievement-stat-number {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.achievement-stat-label {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Achievement Tabs */
+.achievements-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.achievements-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievements-tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.achievements-tab:hover::before {
+  left: 100%;
+}
+
+.achievements-tab:hover {
+  background: rgba(139, 92, 246, 0.1);
+  color: #ffffff;
+  transform: translateY(-2px);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+}
+
+.achievements-tab.active {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  color: #ffffff;
+  border-color: #8b5cf6;
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+.achievements-tab.active:hover {
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+}
+
+.achievements-tab-icon {
+  font-size: 1.125rem;
+}
+
+.achievements-tab-text {
   white-space: nowrap;
 }
 
-.achievement-badge:hover {
-  background: linear-gradient(135deg, 
-    rgba(255, 204, 0, 0.3), 
-    rgba(255, 204, 0, 0.2));
+.achievements-tab-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.achievements-tab.active .achievements-tab-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Achievement Content */
+.achievements-content {
+  position: relative;
+  z-index: 1;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+/* Certificate Filters */
+.certifications-tab-content {
+  width: 100%;
+}
+
+.certificate-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.certificate-filter-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(15, 23, 42, 0.8);
+  border: 2px solid rgba(139, 92, 246, 0.2);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(15px);
+  position: relative;
+  overflow: hidden;
+}
+
+.certificate-filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.certificate-filter-btn:hover::before {
+  left: 100%;
+}
+
+.certificate-filter-btn:hover {
+  background: rgba(139, 92, 246, 0.1);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 204, 0, 0.2);
+  border-color: rgba(139, 92, 246, 0.4);
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.15);
+}
+
+.certificate-filter-btn.active {
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6);
+  color: #ffffff;
+  border-color: #8b5cf6;
+  box-shadow: 0 8px 25px rgba(139, 92, 246, 0.3);
+}
+
+.certificate-filter-btn.active:hover {
+  background: linear-gradient(135deg, #7c3aed, #2563eb);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(139, 92, 246, 0.4);
+}
+
+.filter-text {
+  white-space: nowrap;
+}
+
+.filter-count {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 50px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.certificate-filter-btn.active .filter-count {
+  background: rgba(255, 255, 255, 0.3);
+  color: white;
+}
+
+/* Modern Grids - Matching Skills Section */
+.modern-hackathons-grid,
+.modern-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+/* Modern Cards */
+.modern-hackathon-card,
+.modern-achievement-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(20px);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(30px) scale(0.9);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 320px;
+}
+
+.modern-hackathon-card.visible,
+.modern-achievement-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.modern-hackathon-card::before,
+.modern-achievement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-hackathon-card:hover,
+.modern-achievement-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.4),
+    0 0 80px rgba(139, 92, 246, 0.15);
+}
+
+.modern-hackathon-card:hover::before,
+.modern-achievement-card:hover::before {
+  opacity: 1;
+}
+
+/* Floating Orbs */
+.hackathon-orb,
+.achievement-orb {
+  position: relative;
+  margin-bottom: 1.5rem;
+  width: 80px;
+  height: 80px;
+}
+
+.hackathon-orb__inner,
+.achievement-orb__inner {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s ease;
+}
+
+.hackathon-orb__inner--trophy {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.4);
+}
+
+.achievement-orb__inner--star {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.4);
+}
+
+.hackathon-orb__ring,
+.achievement-orb__ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: orbRotate 8s linear infinite;
+}
+
+.modern-hackathon-card:hover .hackathon-orb__inner,
+.modern-achievement-card:hover .achievement-orb__inner {
+  transform: scale(1.1);
+}
+
+.modern-hackathon-card:hover .hackathon-orb__ring,
+.modern-achievement-card:hover .achievement-orb__ring {
+  border-color: rgba(255, 255, 255, 0.2);
+  animation-duration: 2s;
+}
+
+/* Card Info */
+.hackathon-info,
+.achievement-info {
+  margin-bottom: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hackathon-name,
+.achievement-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.75rem 0;
+  line-height: 1.3;
+}
+
+.hackathon-level,
+.achievement-level {
+  margin-bottom: 0.75rem;
+}
+
+.hackathon-badge,
+.achievement-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.375rem 0.875rem;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid;
+}
+
+.hackathon-badge--completed {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.achievement-badge--completed {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  border-color: rgba(139, 92, 246, 0.3);
+}
+
+.hackathon-organizer,
+.hackathon-description,
+.hackathon-project,
+.achievement-description {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+  margin: 0 0 0.5rem 0;
+}
+
+/* Circular Progress */
+.hackathon-progress-circle,
+.achievement-progress-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.progress-ring {
+  transform: rotate(-90deg);
+  width: 80px;
+  height: 80px;
+}
+
+.progress-ring__circle {
+  transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  stroke-linecap: round;
+}
+
+.progress-ring__circle--trophy {
+  stroke: #f59e0b;
+}
+
+.progress-ring__circle--star {
+  stroke: #8b5cf6;
+}
+
+.progress-percentage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.progress-number {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.progress-symbol {
+  font-size: 0.6rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Technologies and Badges */
+.hackathon-technologies,
+.achievement-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.tech-bubble,
+.badge-bubble {
+  background: rgba(139, 92, 246, 0.15);
+  color: #8b5cf6;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 15px;
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.tech-bubble:hover,
+.badge-bubble:hover {
+  background: rgba(139, 92, 246, 0.25);
+  border-color: rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
+}
+
+.tech-bubble--more,
+.badge-bubble--more {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.2);
+  font-style: italic;
+}
+
+/* Hover Effects */
+.hackathon-card-glow,
+.achievement-card-glow {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.modern-hackathon-card:hover .hackathon-card-glow,
+.modern-achievement-card:hover .achievement-card-glow {
+  opacity: 1;
+}
+
+/* Floating Particles */
+.hackathon-card-particles,
+.achievement-card-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(139, 92, 246, 0.6);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.particle-1 {
+  top: 20%;
+  left: 20%;
+  animation: float1 4s ease-in-out infinite;
+}
+
+.particle-2 {
+  top: 60%;
+  right: 20%;
+  animation: float2 5s ease-in-out infinite;
+}
+
+.particle-3 {
+  bottom: 20%;
+  left: 60%;
+  animation: float3 6s ease-in-out infinite;
+}
+
+.modern-hackathon-card:hover .particle,
+.modern-achievement-card:hover .particle {
+  opacity: 1;
+}
+
+/* Keyframe Animations */
+@keyframes orbRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float1 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  25% { transform: translateY(-10px) translateX(5px); }
+  50% { transform: translateY(-5px) translateX(-5px); }
+  75% { transform: translateY(-15px) translateX(3px); }
+}
+
+@keyframes float2 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  33% { transform: translateY(-8px) translateX(-3px); }
+  66% { transform: translateY(-12px) translateX(4px); }
+}
+
+@keyframes float3 {
+  0%, 100% { transform: translateY(0px) translateX(0px); }
+  20% { transform: translateY(-6px) translateX(2px); }
+  40% { transform: translateY(-10px) translateX(-4px); }
+  60% { transform: translateY(-4px) translateX(3px); }
+  80% { transform: translateY(-8px) translateX(-2px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .education-timeline {
-    padding: 0 var(--spacing-2);
+  .achievements-section {
+    padding: 3rem 0;
   }
   
-  .education-item {
-    margin-bottom: var(--spacing-4);
+  .container {
+    padding: 0 1rem;
   }
   
-  .education-marker {
-    margin-right: var(--spacing-2);
+  .achievements-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
   
-  .education-card {
-    padding: var(--spacing-3);
+  .achievement-stat-card {
+    padding: 1rem;
   }
   
-  .education-header {
-    flex-direction: column;
-    gap: var(--spacing-3);
+  .achievement-stat-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
   }
   
-  .education-grade {
-    margin-left: 0;
-    align-self: flex-start;
+  .achievement-stat-number {
+    font-size: 1.5rem;
   }
   
-  .education-degree {
-    font-size: var(--font-size-lg);
+  .achievements-tabs {
+    gap: 0.5rem;
   }
   
-  .education-institution {
-    font-size: var(--font-size-base);
+  .achievements-tab {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
   }
   
-  .education-meta {
-    gap: var(--spacing-1);
+  .achievements-tab-text {
+    display: none;
   }
   
-  .education-duration,
-  .education-location,
-  .education-status {
-    font-size: var(--font-size-xs);
-    padding: 0.2rem 0.6rem;
+  .modern-hackathons-grid,
+  .modern-achievements-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem 0;
   }
   
-  .grade-value {
-    font-size: var(--font-size-lg);
-    padding: var(--spacing-1) var(--spacing-2);
-    min-width: 70px;
+  .modern-hackathon-card,
+  .modern-achievement-card {
+    padding: 1.5rem 1rem;
+    min-height: 280px;
   }
   
-  .achievements-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-4);
+  .hackathon-orb,
+  .achievement-orb {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
   }
   
-  .achievement-card {
-    padding: var(--spacing-4);
+  .hackathon-orb__inner,
+  .achievement-orb__inner {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
   }
   
-  .achievement-badges {
-    gap: var(--spacing-1);
+  .hackathon-name,
+  .achievement-name {
+    font-size: 1rem;
   }
   
-  .achievement-badge {
-    font-size: var(--font-size-xs);
-    padding: 0.3rem 0.6rem;
+  .hackathon-progress-circle,
+  .achievement-progress-circle {
+    width: 60px;
+    height: 60px;
   }
   
-  .subsection-title {
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--spacing-4);
+  .progress-ring {
+    width: 60px;
+    height: 60px;
   }
 }
 
 @media (max-width: 480px) {
-  .education-timeline-container,
-  .certifications-container,
-  .achievements-container {
-    margin-bottom: var(--spacing-6);
+  .achievements-stats-grid {
+    grid-template-columns: 1fr;
   }
   
-  .education-dot {
-    width: 14px;
-    height: 14px;
+  .achievements-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .achievements-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .achievements-tab {
+    flex-shrink: 0;
+    padding: 0.75rem;
+  }
+  
+  .achievements-tab-count {
+    display: none;
+  }
+  
+  .modern-hackathons-grid,
+  .modern-achievements-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .modern-hackathon-card,
+  .modern-achievement-card {
+    padding: 1.25rem 0.75rem;
+    min-height: 260px;
+  }
+  
+  .hackathon-orb,
+  .achievement-orb {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .hackathon-orb__inner,
+  .achievement-orb__inner {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25rem;
+  }
+  
+  .hackathon-name,
+  .achievement-name {
+    font-size: 0.9rem;
+  }
+  
+  .hackathon-progress-circle,
+  .achievement-progress-circle {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .progress-ring {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .tech-bubble,
+  .badge-bubble {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+/* Focus states for accessibility */
+.modern-hackathon-card:focus,
+.modern-achievement-card:focus {
+  outline: 2px solid #8b5cf6;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .modern-hackathon-card,
+  .modern-achievement-card {
+    border-color: #8b5cf6;
+  }
+  
+  .hackathon-badge,
+  .achievement-badge {
     border-width: 2px;
   }
-  
-  .education-line {
-    height: 60px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .modern-hackathon-card,
+  .modern-achievement-card,
+  .hackathon-orb__inner,
+  .achievement-orb__inner,
+  .hackathon-orb__ring,
+  .achievement-orb__ring,
+  .particle {
+    animation: none;
+    transition: none;
   }
   
-  .achievement-icon {
-    font-size: 2.5rem;
-    margin-bottom: var(--spacing-2);
+  .modern-hackathon-card:hover,
+  .modern-achievement-card:hover {
+    transform: none;
   }
   
-  .achievement-title {
-    font-size: var(--font-size-lg);
-  }
-  
-  .achievement-description {
-    font-size: var(--font-size-sm);
+  .progress-ring__circle {
+    transition: none;
   }
 }

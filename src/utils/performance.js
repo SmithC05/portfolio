@@ -1,4 +1,5 @@
 // Performance optimization utilities
+import React from 'react';
 
 // Debounce function for scroll events
 export const debounce = (func, wait, immediate = false) => {
@@ -18,7 +19,7 @@ export const debounce = (func, wait, immediate = false) => {
 // Throttle function for resize events
 export const throttle = (func, limit) => {
   let inThrottle;
-  return function(...args) {
+  return function (...args) {
     if (!inThrottle) {
       func.apply(this, args);
       inThrottle = true;
@@ -87,7 +88,7 @@ export const getDevicePerformance = () => {
   const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   const memory = navigator.deviceMemory || 4; // Default to 4GB
   const cores = navigator.hardwareConcurrency || 4; // Default to 4 cores
-  
+
   return {
     memory,
     cores,
@@ -101,7 +102,7 @@ export const getDevicePerformance = () => {
 // Adaptive loading based on device performance
 export const shouldUseReducedAnimations = () => {
   const performance = getDevicePerformance();
-  
+
   return (
     prefersReducedMotion() ||
     performance.memory <= 2 ||
@@ -120,14 +121,14 @@ export const loadComponentAsync = (importFunc) => {
 // Critical resource hints
 export const addResourceHints = () => {
   const head = document.head;
-  
+
   // Preconnect to external domains
   const preconnectDomains = [
     'https://fonts.googleapis.com',
     'https://fonts.gstatic.com',
     'https://cdn.jsdelivr.net'
   ];
-  
+
   preconnectDomains.forEach(domain => {
     const link = document.createElement('link');
     link.rel = 'preconnect';
@@ -135,12 +136,12 @@ export const addResourceHints = () => {
     link.crossOrigin = 'anonymous';
     head.appendChild(link);
   });
-  
+
   // DNS prefetch for other domains
   const dnsPrefetchDomains = [
     'https://formspree.io'
   ];
-  
+
   dnsPrefetchDomains.forEach(domain => {
     const link = document.createElement('link');
     link.rel = 'dns-prefetch';
@@ -171,7 +172,7 @@ export const setupPerformanceObserver = () => {
       console.log('LCP:', lastEntry.startTime);
     });
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
-    
+
     // Monitor first input delay
     const fidObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
@@ -180,7 +181,7 @@ export const setupPerformanceObserver = () => {
       });
     });
     fidObserver.observe({ entryTypes: ['first-input'] });
-    
+
     // Monitor cumulative layout shift
     const clsObserver = new PerformanceObserver((list) => {
       let clsValue = 0;
@@ -199,21 +200,21 @@ export const setupPerformanceObserver = () => {
 // Optimize scroll performance
 export const optimizeScrollPerformance = () => {
   let ticking = false;
-  
+
   const updateScrollPosition = () => {
     // Update scroll-dependent elements here
     ticking = false;
   };
-  
+
   const onScroll = () => {
     if (!ticking) {
       requestAnimationFrame(updateScrollPosition);
       ticking = true;
     }
   };
-  
+
   window.addEventListener('scroll', onScroll, { passive: true });
-  
+
   return () => window.removeEventListener('scroll', onScroll);
 };
 
@@ -223,21 +224,21 @@ export const registerServiceWorker = async () => {
     try {
       const registration = await navigator.serviceWorker.register('/sw.js');
       console.log('Service Worker registered:', registration);
-      
+
       // Handle service worker updates
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         newWorker.addEventListener('statechange', () => {
           if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
             // New service worker is available
-            if (confirm('New version available! Reload to update?')) {
+            if (window.confirm('New version available! Reload to update?')) {
               newWorker.postMessage({ type: 'SKIP_WAITING' });
               window.location.reload();
             }
           }
         });
       });
-      
+
       return registration;
     } catch (error) {
       console.error('Service Worker registration failed:', error);
@@ -262,12 +263,12 @@ export const optimizeFontLoading = () => {
       display: 'swap'
     }
   ];
-  
+
   fontFaces.forEach(font => {
     const fontFace = new FontFace(font.family, font.src, {
       display: font.display
     });
-    
+
     fontFace.load().then(loadedFont => {
       document.fonts.add(loadedFont);
     });
@@ -279,13 +280,13 @@ export const getOptimalImageFormat = () => {
   const canvas = document.createElement('canvas');
   canvas.width = 1;
   canvas.height = 1;
-  
+
   // Check WebP support
   const supportsWebP = canvas.toDataURL('image/webp').indexOf('data:image/webp') === 0;
-  
+
   // Check AVIF support
   const supportsAVIF = canvas.toDataURL('image/avif').indexOf('data:image/avif') === 0;
-  
+
   if (supportsAVIF) return 'avif';
   if (supportsWebP) return 'webp';
   return 'jpg';
@@ -299,12 +300,12 @@ export const cleanup = {
       element.removeEventListener(type, handler, options);
     });
   },
-  
+
   // Cancel animation frames
   cancelAnimationFrames: (frameIds) => {
     frameIds.forEach(id => cancelAnimationFrame(id));
   },
-  
+
   // Clear timeouts and intervals
   clearTimers: (timerIds) => {
     timerIds.forEach(id => {

@@ -1,7 +1,8 @@
-/* Section Header Component */
+/* Modern Section Header Component */
 .section-header {
-  margin-bottom: var(--spacing-8);
+  margin-bottom: 4rem;
   position: relative;
+  z-index: 2;
 }
 
 .section-header.centered {
@@ -15,20 +16,28 @@
 }
 
 .section-header__title {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-2);
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
   position: relative;
   display: inline-block;
+  background: linear-gradient(135deg, #8b5cf6, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
 }
 
 .section-header__subtitle {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-  margin-bottom: var(--spacing-4);
-  max-width: 600px;
-  line-height: var(--line-height-relaxed);
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2.5rem;
+  max-width: 700px;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .section-header.centered .section-header__subtitle {
@@ -37,12 +46,13 @@
 }
 
 .section-header__divider {
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
-  border-radius: var(--border-radius-full);
+  width: 120px;
+  height: 5px;
+  background: linear-gradient(90deg, #8b5cf6, #3b82f6, #06b6d4);
+  border-radius: 50px;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.4);
 }
 
 .section-header.centered .section-header__divider {
@@ -84,25 +94,34 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .section-header__title {
-    font-size: var(--font-size-3xl);
+    font-size: 2.75rem;
   }
   
   .section-header__subtitle {
-    font-size: var(--font-size-base);
+    font-size: 1.1rem;
   }
   
   .section-header__divider {
-    width: 60px;
-    height: 3px;
+    width: 100px;
+    height: 4px;
   }
 }
 
 @media (max-width: 480px) {
   .section-header__title {
-    font-size: var(--font-size-2xl);
+    font-size: 2.25rem;
+  }
+  
+  .section-header__subtitle {
+    font-size: 1rem;
+  }
+  
+  .section-header__divider {
+    width: 80px;
+    height: 4px;
   }
   
   .section-header {
-    margin-bottom: var(--spacing-6);
+    margin-bottom: 3rem;
   }
 }

@@ -9,9 +9,9 @@ export const socialLinksData = [
     description: "View my code repositories and open source contributions",
     primary: true,
     stats: {
-      repositories: "15+",
-      followers: "25+",
-      contributions: "200+"
+      repositories: "8",
+      followers: "12",
+      contributions: "150+"
     }
   },
   {
@@ -23,9 +23,9 @@ export const socialLinksData = [
     description: "Connect with me professionally and view my career journey",
     primary: true,
     stats: {
-      connections: "150+",
-      posts: "20+",
-      endorsements: "30+"
+      connections: "80+",
+      posts: "10+",
+      endorsements: "15+"
     }
   },
   {

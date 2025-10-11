@@ -251,13 +251,6 @@ body {
 }
 
 /* Footer */
-footer {
-  background: var(--color-secondary);
-  padding: var(--spacing-4);
-  text-align: center;
-  color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
-}
 
 /* Responsive Design */
 @media (max-width: 768px) {

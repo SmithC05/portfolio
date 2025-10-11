@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { keyboardNavigation, focusManagement } from "../utils/accessibility";
+//import { keyboardNavigation, focusManagement } from "../utils/accessibility";
 import "./Navbar.css";
 
 function Navbar() {
@@ -20,18 +20,18 @@ function Navbar() {
   }, []);
 
   // Enhanced keyboard navigation and focus management
-  useEffect(() => {
-    if (!navLinksRef.current) return;
+  // useEffect(() => {
+  //   if (!navLinksRef.current) return;
 
-    // Set up arrow key navigation for menu items
-    const cleanup = keyboardNavigation.handleArrowKeys(navLinksRef.current, {
-      itemSelector: 'a',
-      columns: 1,
-      wrap: true
-    });
+  //   // Set up arrow key navigation for menu items
+  //   const cleanup = keyboardNavigation.handleArrowKeys(navLinksRef.current, {
+  //     itemSelector: 'a',
+  //     columns: 1,
+  //     wrap: true
+  //   });
 
-    return cleanup;
-  }, []);
+  //   return cleanup;
+  // }, []);
 
   // Close menu when clicking outside or pressing Escape
   useEffect(() => {

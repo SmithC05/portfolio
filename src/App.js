@@ -9,11 +9,6 @@ import AchievementsSection from "./components/Achievements/AchievementsSection";
 import ContactSection from "./components/Contact/ContactSection";
 import ScrollToTop from "./components/Common/ScrollToTop";
 import { useScrollAnimation } from "./components/Common/ScrollAnimations";
-import { initializeAccessibility } from "./utils/accessibility";
-import { addResourceHints, shouldUseReducedAnimations } from "./utils/performance";
-import { initializeBundleAnalysis } from "./utils/bundleAnalysis";
-import { initializeAccessibilityTesting } from "./utils/accessibilityTesting";
-
 import "./App.css";
 import "./styles/animations.css";
 import "./styles/accessibility.css";
@@ -28,55 +23,6 @@ function App() {
   const projectsRef = useScrollAnimation({ threshold: 0.1, stagger: true, staggerDelay: 200, once: true });
   const achievementsRef = useScrollAnimation({ threshold: 0.1, stagger: true, staggerDelay: 100, once: true });
   const contactRef = useScrollAnimation({ threshold: 0.2, once: true });
-
-  // Initialize performance and accessibility features
-  useEffect(() => {
-    let mounted = true;
-
-    const initializeApp = async () => {
-      if (!mounted) return;
-
-      // Add resource hints for better performance
-      addResourceHints();
-
-      // Initialize accessibility features
-      initializeAccessibility();
-
-      // Check if we should use reduced animations
-      setUseReducedAnimations(shouldUseReducedAnimations());
-
-      // Initialize development-only features
-      if (process.env.NODE_ENV === 'development') {
-        initializeBundleAnalysis();
-        initializeAccessibilityTesting();
-
-        // Add performance monitoring
-        const { setupPerformanceObserver } = await import('./utils/performance');
-        setupPerformanceObserver();
-      }
-
-      // Register service worker for caching
-      const { registerServiceWorker } = await import('./utils/performance');
-      registerServiceWorker();
-
-      // Preload critical images
-      const { preloadCriticalImages } = await import('./utils/imageOptimization');
-      const criticalImages = [
-        '/assets/profile.jpg',
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg',
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg',
-        'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg'
-      ];
-      preloadCriticalImages(criticalImages);
-    };
-
-    initializeApp().catch(console.error);
-
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
   return (
     <div className="app">
       <a href="#main-content" className="skip-link">Skip to main content</a>
@@ -94,13 +40,19 @@ function App() {
         </section>
 
         {/* Experience and Education Sections */}
-        <div style={{ opacity: 1 }}>
+        <div
+          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+          ref={aboutRef}
+        >
           <ExperienceTimeline />
           <EducationSection />
         </div>
 
         {/* Skills Section */}
-        <div style={{ opacity: 1 }}>
+        <div
+          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
+          ref={skillsRef}
+        >
           <SkillsSection />
         </div>
 
@@ -132,10 +84,10 @@ function App() {
       {/* Scroll to Top Button */}
       <ScrollToTop />
 
-      {/* Debug Component - Remove in production */}
+      
       
       <footer role="contentinfo" className="sr-only">
-        <p>© 2024 Smith C - Software Developer Portfolio</p>
+        <p>© 2025 Smith C - Software Developer Portfolio</p>
       </footer>
     </div>
   );

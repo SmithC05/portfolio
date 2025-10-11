@@ -32,12 +32,12 @@ export const educationData = [
     location: "Rajapalayam, Tamil Nadu",
     grade: "94.5%",
     status: "Completed",
-    description: "Higher secondary education with focus on Mathematics, Physics, Chemistry, and Computer Science.",
-    stream: "Science (Mathematics, Physics, Chemistry, Computer Science)",
+    description: "Higher secondary education with focus on Mathematics, Physics, Chemistry.",
+    stream: "Science (Mathematics, Physics, Chemistry)",
     achievements: [
       "Achieved 94.5% overall grade",
-      "Excellence in Mathematics and Computer Science",
-      "School topper in Computer Science"
+      "Excellence in Mathematics and Physics",
+      "School topper in Physics"
     ]
   },
   {

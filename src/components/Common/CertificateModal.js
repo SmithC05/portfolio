@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { focusManagement } from '../../utils/accessibility';
+//import { focusManagement } from '../../utils/accessibility';
 import LazyImage from './LazyImage';
 import './CertificateModal.css';
 

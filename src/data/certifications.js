@@ -9,7 +9,7 @@ export const certificationsData = [
     date: "2024-08-15",
     description: "Comprehensive Android development program covering Kotlin, Android Studio, UI/UX design, and app deployment",
     skills: ["Android Development", "Kotlin", "Android Studio", "Mobile UI/UX"],
-    certificateImage: "android-development-cert.jpg",
+    certificateImage: "../assets/android-development-cert.jpg",
     verificationUrl: null,
     status: "Completed"
   },

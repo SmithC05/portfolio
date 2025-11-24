@@ -167,15 +167,17 @@
 /* Circular Progress */
 .project-progress-circle {
   position: relative;
-  width: 80px;
+   width: 80px;
   height: 80px;
+  aspect-ratio: 1 / 1;
   margin-bottom: 1rem;
 }
 
 .progress-ring {
   transform: rotate(-90deg);
-  width: 80px;
+   width: 80px;
   height: 80px;
+  aspect-ratio: 1 / 1;
 }
 
 .progress-ring__circle {
@@ -393,12 +395,15 @@
   .modern-project-card {
     padding: 1.5rem 1rem;
     min-height: 280px;
+    justify-content: center;
   }
   
   .project-orb {
     width: 60px;
     height: 60px;
     margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .project-orb__inner {
@@ -412,13 +417,17 @@
   }
   
   .project-progress-circle {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+  height: 80px;
+  aspect-ratio: 1 / 1;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .progress-ring {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+  height: 80px;
+  aspect-ratio: 1 / 1;
   }
   
   .progress-number {
@@ -436,11 +445,14 @@
   .modern-project-card {
     padding: 1.25rem 0.75rem;
     min-height: 260px;
+    justify-content: center;
   }
   
   .project-orb {
     width: 50px;
     height: 50px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .project-orb__inner {
@@ -454,13 +466,17 @@
   }
   
   .project-progress-circle {
-    width: 50px;
-    height: 50px;
+     width: 80px;
+  height: 80px;
+  aspect-ratio: 1 / 1;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .progress-ring {
-    width: 50px;
-    height: 50px;
+     width: 80px;
+  height: 80px;
+  aspect-ratio: 1 / 1;
   }
   
   .progress-number {

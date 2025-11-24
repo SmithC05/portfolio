@@ -107,14 +107,9 @@
   box-sizing: border-box;
 }
 
-/* Force dark theme everywhere */
+/* Force dark theme everywhere - but allow section backgrounds */
 *, *::before, *::after {
-  background-color: inherit;
-}
-
-/* Ensure no white backgrounds anywhere */
-div, section, main, article, aside, header, footer, nav {
-  background-color: transparent;
+  box-sizing: border-box;
 }
 
 html {

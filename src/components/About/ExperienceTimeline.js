@@ -152,7 +152,7 @@ const ExperienceTimeline = () => {
 
                     {expandedItem === experience.id && (
                       <div className="experience-details">
-                        <div className="achievements-section">
+                        <div className="achievements-sections">
                           <h5>Key Achievements:</h5>
                           <ul className="achievements-list">
                             {experience.achievements.map((achievement, achIndex) => (

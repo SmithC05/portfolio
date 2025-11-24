@@ -1,4 +1,30 @@
-// Project portfolio data
+// ============================================
+// 💼 PROJECTS DATA
+// ============================================
+// Add, update, or remove your projects here
+//
+// 📝 HOW TO ADD A NEW PROJECT:
+// 1. Copy an existing project object
+// 2. Update the id (increment from last project)
+// 3. Update title, description, and longDescription
+// 4. Update category: "Full-Stack", "Backend", "Frontend", "Real-Time"
+// 5. Update technologies array with tech stack used
+// 6. Update features array with key features
+// 7. Add your GitHub repository URL in githubUrl
+// 8. Add live demo URL in liveUrl (or null if not deployed)
+// 9. Add project image path or use PROJECT_PLACEHOLDER
+// 10. Update status: "Completed", "In Development", "Planning"
+// 11. Update dates, highlights, challenges, and learnings
+//
+// 🖼️ TO ADD PROJECT IMAGES:
+// - Place images in public/assets/projects/ folder
+// - Update image path: "/assets/projects/your-project.png"
+// - Or use PROJECT_PLACEHOLDER for now
+//
+// 🔗 IMPORTANT LINKS:
+// - githubUrl: Your GitHub repository URL
+// - liveUrl: Your deployed project URL (Vercel, Netlify, etc.)
+// ============================================
 
 // Using a simple base64 1x1 pixel image to prevent any network requests
 const PROJECT_PLACEHOLDER = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";

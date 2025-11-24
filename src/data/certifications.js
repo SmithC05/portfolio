@@ -1,4 +1,38 @@
-// Certifications and achievements data
+// ============================================
+// 🏆 CERTIFICATIONS & ACHIEVEMENTS DATA
+// ============================================
+// Add your certifications, hackathons, and achievements here
+//
+// 📝 HOW TO ADD A NEW CERTIFICATION:
+// 1. Copy an existing certification object
+// 2. Update the id (increment from last certification)
+// 3. Update title with certificate name
+// 4. Update issuer (organization that issued the certificate)
+// 5. Update type: "Professional Development", "Technical Skills", "Artificial Intelligence", etc.
+// 6. Update category for grouping
+// 7. Update date (YYYY-MM-DD format)
+// 8. Update description with what you learned
+// 9. Update skills array with relevant skills
+// 10. Add certificate image path or URL
+// 11. Add verificationUrl if available (or null)
+// 12. Update status: "Completed", "In Progress"
+//
+// 🖼️ TO ADD CERTIFICATE IMAGES:
+// - Place certificate images in public/assets/certificates/ folder
+// - Update certificateImage: "/assets/certificates/your-cert.jpg"
+//
+// 🔗 CERTIFICATE URL:
+// - verificationUrl: Link to verify your certificate online
+// - If no URL available, set to null
+//
+// 🎯 HACKATHONS:
+// - Add hackathon entries in hackathonsData array below
+// - Include project name, achievement, and links
+//
+// 🌟 ACHIEVEMENTS:
+// - Add general achievements in achievementsData array
+// - Include awards, recognitions, and milestones
+// ============================================
 export const certificationsData = [
   {
     id: 1,

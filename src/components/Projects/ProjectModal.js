@@ -32,6 +32,16 @@ const ProjectModal = ({ project, onClose, allProjects, onNavigate }) => {
       document.body.style.overflow = 'unset';
     };
   }, [onClose]);
+  // Auto-scroll modal into center on open
+useEffect(() => {
+  if (modalRef.current) {
+    modalRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+}, []);
+
 
   // Handle click outside modal
   const handleBackdropClick = (e) => {

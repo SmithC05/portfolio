@@ -119,7 +119,7 @@ const EducationSection = () => {
 
                 {expandedItem === education.id && education.achievements && education.achievements.length > 0 && (
                   <div className="education-details">
-                    <div className="achievements-section">
+                    <div className="achievements-sections">
                       <h5>Key Achievements:</h5>
                       <ul className="achievements-list">
                         {education.achievements

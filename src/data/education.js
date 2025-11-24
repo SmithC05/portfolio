@@ -1,4 +1,48 @@
-// Education and academic background data
+// ============================================
+// 🎓 EDUCATION DATA
+// ============================================
+// Add your educational qualifications here
+//
+// 📝 HOW TO UPDATE EDUCATION:
+// 1. Find the education entry you want to update
+// 2. Update degree name
+// 3. Update institution name
+// 4. Update duration (MM/YYYY - MM/YYYY)
+// 5. Update location
+// 6. Update cgpa/grade
+// 7. Set status: "Pursuing", "Completed", "Expected"
+// 8. Update description
+// 9. Update relevantCoursework array (for degrees)
+// 10. Update achievements array
+//
+// ➕ TO ADD NEW EDUCATION:
+// Copy this template:
+// {
+//   id: 4,  // Increment from last id
+//   degree: "Degree Name",
+//   institution: "Institution Name",
+//   fullName: "Full Institution Name (optional)",
+//   duration: "MM/YYYY - MM/YYYY",
+//   location: "City, State/Country",
+//   cgpa: "X.XX" or grade: "XX%",
+//   status: "Pursuing" or "Completed",
+//   description: "Brief description",
+//   relevantCoursework: ["Course 1", "Course 2"],
+//   achievements: ["Achievement 1", "Achievement 2"]
+// }
+//
+// 📚 RELEVANT COURSEWORK:
+// - List important courses related to your field
+// - Focus on technical and specialized subjects
+// - Keep it relevant to your career goals
+//
+// 🏆 ACHIEVEMENTS:
+// - Academic honors and awards
+// - GPA/CGPA milestones
+// - Leadership roles
+// - Competition wins
+// - Research projects
+// ============================================
 export const educationData = [
   {
     id: 1,

@@ -631,11 +631,12 @@
   .floating-element {
     display: none; /* Hide on very small screens */
   }
-}/*
- Personal Signature Elements */
+}
+
+/* Personal Signature Elements */
 .signature-crown {
   font-size: 2rem;
- margin-left: -1rem;
+  margin-left: 0.5rem;
   opacity: 0.9;
   animation: crownGlow 3s ease-in-out infinite;
   display: inline-block;

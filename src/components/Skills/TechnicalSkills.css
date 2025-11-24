@@ -182,9 +182,11 @@
 }
 
 .progress-ring {
-  width: 80px;
-  height: 80px;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
 }
+
 
 .progress-ring__circle {
   transition: stroke-dashoffset 2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -419,12 +421,15 @@
   .modern-skill-card {
     padding: 1.5rem 1rem;
     min-height: 240px;
+    justify-content: center;
   }
   
   .skill-orb {
     width: 60px;
     height: 60px;
     margin-bottom: 1rem;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .skill-orb__inner {
@@ -438,17 +443,19 @@
   }
   
   .skill-progress-circle {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .progress-ring {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
   }
   
   .progress-number {
-    font-size: 1rem;
+    font-size: 0.5rem;
   }
 }
 
@@ -461,11 +468,14 @@
   .modern-skill-card {
     padding: 1.25rem 0.75rem;
     min-height: 220px;
+    justify-content: center;
   }
   
   .skill-orb {
     width: 50px;
     height: 50px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .skill-orb__inner {
@@ -479,17 +489,19 @@
   }
   
   .skill-progress-circle {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
   }
   
   .progress-ring {
-    width: 50px;
-    height: 50px;
+    width: 80px;
+    height: 80px;
   }
   
   .progress-number {
-    font-size: 0.875rem;
+    font-size: 0.5rem;
   }
   
   .skills-grid-empty {

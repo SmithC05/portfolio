@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef} from 'react';
 import './CertificatesGrid.css';
 
 const CertificateCard = ({ certificate, onClick, index }) => {
@@ -17,6 +17,7 @@ const CertificateCard = ({ certificate, onClick, index }) => {
     
     return () => clearTimeout(timer);
   }, [index]);
+
 
   const getCategoryIcon = (category) => {
     const icons = {
@@ -96,35 +97,50 @@ const CertificateCard = ({ certificate, onClick, index }) => {
       </div>
 
       {/* Circular Progress */}
-      <div className="certificate-progress-circle">
-        <svg className="progress-ring" width="80" height="80">
-          <circle
-            className="progress-ring__circle-bg"
-            stroke="rgba(255, 255, 255, 0.1)"
-            strokeWidth="4"
-            fill="transparent"
-            r="36"
-            cx="40"
-            cy="40"
-          />
-          <circle
-            className={`progress-ring__circle progress-ring__circle--${getStatusLevel(certificate.status)}`}
-            strokeWidth="4"
-            fill="transparent"
-            r="36"
-            cx="40"
-            cy="40"
-            style={{
-              strokeDasharray: `${2 * Math.PI * 36}`,
-              strokeDashoffset: `${2 * Math.PI * 36 * (1 - animatedProgress / 100)}`,
-            }}
-          />
-        </svg>
-        <div className="progress-percentage">
-          <span className="progress-number">{getSubcertCount()}</span>
-          <span className="progress-symbol">cert</span>
-        </div>
-      </div>
+<div className="certificate-progress-circle">
+  <svg
+    className="progress-ring"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    {/* Background Circle */}
+    <circle
+      className="progress-ring__circle-bg"
+      stroke="rgba(255, 255, 255, 0.1)"
+      strokeWidth="6"
+      fill="transparent"
+      r="45"
+      cx="50"
+      cy="50"
+    />
+
+    {/* Progress Circle */}
+    <circle
+      className={`progress-ring__circle progress-ring__circle--${getStatusLevel(
+        certificate.status
+      )}`}
+      strokeWidth="6"
+      fill="transparent"
+      r="45"
+      cx="50"
+      cy="50"
+      strokeLinecap="round"
+      style={{
+        strokeDasharray: `${2 * Math.PI * 45}`,
+        strokeDashoffset: `${2 * Math.PI * 45 * (1 - animatedProgress / 100)}`,
+        transform: "rotate(-90deg)",
+        transformOrigin: "50% 50%",
+        transition: "stroke-dashoffset 1.8s ease"
+      }}
+    />
+  </svg>
+
+  <div className="progress-percentage">
+    <span className="progress-number">{getSubcertCount()}</span>
+    <span className="progress-symbol">cert</span>
+  </div>
+</div>
+
 
       {/* Subcertifications */}
       {certificate.subcertifications && (
@@ -195,6 +211,17 @@ const CertificatesGrid = ({ certifications }) => {
     };
     return icons[category] || 'fas fa-certificate';
   };
+  const modalRef = useRef(null);
+
+useEffect(() => {
+  if (isModalOpen && modalRef.current) {
+    modalRef.current.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }
+}, [isModalOpen]);
+
 
   if (!certifications.length) {
     return (
@@ -232,7 +259,7 @@ const CertificatesGrid = ({ certifications }) => {
           className="certificate-modal-overlay"
           onClick={handleModalClick}
         >
-          <div className="certificate-modal">
+          <div className="certificate-modal" ref={modalRef}>
             <div className="certificate-modal-header">
               <div className="modal-certificate-info">
                 <div className="modal-category-icon">

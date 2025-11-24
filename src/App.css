@@ -297,6 +297,7 @@ body {
     padding-top: 45px;
   }
   
+  
   #main-content {
     padding-top: 87px; /* Small mobile: navbar (59px) + marquee (28px) */
   }
@@ -335,8 +336,20 @@ body {
     text-align: center;
   }
   
-  @keyframes fadeIn,
-  @keyframes slideUp,
+  @keyframes fadeIn {
+    from, to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
+  @keyframes slideUp {
+    from, to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  
   @keyframes marquee-scroll {
     from, to {
       opacity: 1;

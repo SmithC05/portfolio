@@ -1,4 +1,44 @@
-// Social media and professional links data
+// ============================================
+// 🔗 SOCIAL LINKS & CONTACT INFORMATION
+// ============================================
+// Update your social media profiles and contact details here
+//
+// 📝 HOW TO UPDATE SOCIAL LINKS:
+// 1. Find the platform you want to update (GitHub, LinkedIn, etc.)
+// 2. Update the "url" with your profile link
+// 3. Update "username" with your handle
+// 4. Update "stats" with your current numbers (optional)
+// 5. Set "primary: true" for main platforms (shown prominently)
+//
+// ➕ TO ADD A NEW SOCIAL PLATFORM:
+// Copy this template and add to socialLinksData array:
+// {
+//   id: 8,  // Increment from last id
+//   platform: "Platform Name",
+//   url: "https://platform.com/your-username",
+//   icon: "platform-icon.svg",
+//   username: "your-username",
+//   description: "Brief description",
+//   primary: false,  // Set true for main platforms
+//   stats: {
+//     metric1: "value",
+//     metric2: "value"
+//   }
+// }
+//
+// 🔗 IMPORTANT LINKS TO UPDATE:
+// - GitHub: Your GitHub profile URL
+// - LinkedIn: Your LinkedIn profile URL
+// - Email: Your professional email
+// - Phone: Your contact number
+// - LeetCode: Your LeetCode profile
+// - CodeChef: Your CodeChef profile
+// - Portfolio: Your deployed portfolio URL
+//
+// 📧 CONTACT INFO:
+// - Update email, phone, location in contactInfo object below
+// - Update resume download URL and last updated date
+// ============================================
 export const socialLinksData = [
   {
     id: 1,

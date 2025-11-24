@@ -23,3 +23,5 @@ yarn-debug.log*
 yarn-error.log*
 
 .vercel
+.UPDATE_GUIDE.md
+.QUICK_UPDATE_REFERENCE.md

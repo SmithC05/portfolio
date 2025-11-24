@@ -123,8 +123,8 @@
 
 .experience-timeline-marker {
   position: absolute;
-  left: -48px; /* Position relative to timeline container */
-  top: 0;
+  left: -50px; /* Position relative to timeline container */
+  top: -7px;
   width: 18px;
   height: 18px;
   z-index: 3;
@@ -345,7 +345,7 @@
   }
 }
 
-.achievements-section h5 {
+.achievements-sections h5 {
   color: #2563eb;
   font-size: 1.1rem;
   font-weight: 700;
@@ -355,7 +355,7 @@
   gap: 0.5rem;
 }
 
-.achievements-section h5::before {
+.achievements-sections h5::before {
   content: '🏆';
   font-size: 1.2rem;
 }

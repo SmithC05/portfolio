@@ -1,4 +1,44 @@
-// Technical skills and proficiency data
+// ============================================
+// 💻 TECHNICAL SKILLS DATA
+// ============================================
+// Update your technical skills and proficiency levels here
+//
+// 📝 HOW TO UPDATE SKILLS:
+// 1. Find the category: frontend, backend, database, tools, or other
+// 2. Update existing skills or add new ones
+// 3. Set proficiency level (0-100):
+//    - 90-100: Expert level
+//    - 80-89: Advanced level
+//    - 70-79: Intermediate level
+//    - Below 70: Beginner level
+// 4. Update icon (FontAwesome class name)
+// 5. Update description with your experience
+//
+// 🎨 SKILL ICONS:
+// - Use FontAwesome icons: https://fontawesome.com/icons
+// - Format: "fab fa-react" or "fas fa-code"
+// - Common icons:
+//   - React: "fab fa-react"
+//   - JavaScript: "fab fa-js-square"
+//   - Node.js: "fab fa-node-js"
+//   - Python: "fab fa-python"
+//   - Database: "fas fa-database"
+//   - Code: "fas fa-code"
+//
+// 📊 PROFICIENCY LEVELS:
+// - The circular progress bar will fill based on your percentage
+// - Be honest about your skill levels
+// - Update as you improve!
+//
+// ➕ TO ADD A NEW SKILL:
+// Copy this template and add to the appropriate category:
+// { 
+//   name: "Skill Name", 
+//   proficiency: 85, 
+//   icon: "fab fa-icon-name",
+//   description: "Brief description of your experience"
+// }
+// ============================================
 export const skillsData = {
   frontend: [
     { 

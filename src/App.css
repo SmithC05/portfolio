@@ -552,3 +552,13 @@ body {
   }
 }
 
+@media (max-width: 480px) {
+  .fade-in,
+  .reveal,
+  .animated,
+  .skills-section,
+  .section {
+    animation-duration: 0.4s !important;
+    transform: translateY(15px) !important; 
+  }
+}

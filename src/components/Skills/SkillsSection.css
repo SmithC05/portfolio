@@ -2,7 +2,7 @@
 .skills-section {
   background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   min-height: 100vh;
 }
 
@@ -25,6 +25,7 @@
   position: relative;
   z-index: 1;
   margin: 4rem 0;
+  overflow:visible;
 }
 
 .skills-dashboard__grid {
@@ -85,7 +86,7 @@
   font-size: 1.75rem;
   color: white;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .skill-stat-card__icon-bg--purple {
@@ -176,7 +177,7 @@
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   backdrop-filter: blur(10px);
   min-width: 160px;
 }

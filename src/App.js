@@ -1,96 +1,125 @@
-import React, { useState, useEffect } from "react";
+// Fully Optimized App.js with ScrollReveal-Style Animations
+// All fixes applied — hooks inside component, correct imports, clean sections
+
+import React, { Suspense, lazy } from "react";
 import Navbar from "./components/Navbar";
 import HeroSection from "./components/Hero/HeroSection";
-import ExperienceTimeline from "./components/About/ExperienceTimeline";
-import EducationSection from "./components/About/EducationSection";
-import SkillsSection from "./components/Skills/SkillsSection";
-import ProjectsSection from "./components/Projects/ProjectsSection";
-import AchievementsSection from "./components/Achievements/AchievementsSection";
-import ContactSection from "./components/Contact/ContactSection";
 import ScrollToTop from "./components/Common/ScrollToTop";
-import { useScrollAnimation } from "./components/Common/ScrollAnimations";
 import "./App.css";
 import "./styles/animations.css";
 import "./styles/accessibility.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { useScrollReveal,useCinematicScroll  } from "./components/Common/scrollReveal";
+
+
+
+
+
+
+
+// Lazy-loaded heavy components
+const ExperienceTimeline = lazy(() => import("./components/About/ExperienceTimeline"));
+const EducationSection = lazy(() => import("./components/About/EducationSection"));
+const SkillsSection = lazy(() => import("./components/Skills/SkillsSection"));
+const ProjectsSection = lazy(() => import("./components/Projects/ProjectsSection"));
+const AchievementsSection = lazy(() => import("./components/Achievements/AchievementsSection"));
+const ContactSection = lazy(() => import("./components/Contact/ContactSection"));
+
+// Fallback loader
+const Loader = () => (
+  <div className="section-loader">
+    <div className="loader-spinner"></div>
+  </div>
+);
 
 function App() {
-  const [useReducedAnimations, setUseReducedAnimations] = useState(false);
+  // Scroll reveal refs
+  const heroRef = useScrollReveal("fade-left", true);
+  const experienceRef = useScrollReveal("fade-reveal");
+  const educationRef = useScrollReveal("zoom-in");
+  const skillsRef = useScrollReveal("fade-right");
+  const projectsRef = useScrollReveal("zoom-in");
+  const achievementsRef = useScrollReveal("pop-in");
+  const contactRef = useScrollReveal("fade-reveal");
+  useCinematicScroll(".cinematic");
 
-  // Scroll animation refs for sections
-  const aboutRef = useScrollAnimation({ threshold: 0.2, once: true });
-  const skillsRef = useScrollAnimation({ threshold: 0.2, stagger: true, staggerDelay: 150, once: true });
-  const projectsRef = useScrollAnimation({ threshold: 0.1, stagger: true, staggerDelay: 200, once: true });
-  const achievementsRef = useScrollAnimation({ threshold: 0.1, stagger: true, staggerDelay: 100, once: true });
-  const contactRef = useScrollAnimation({ threshold: 0.2, once: true });
   return (
-    <div className="app">
+    <div className="app fade-background">
       <a href="#main-content" className="skip-link">Skip to main content</a>
 
       <Navbar />
 
+      {/* Marquee */}
       <div className="marquee" role="banner" aria-label="Welcome message">
-        <p><i className="fas fa-briefcase"></i> Smith C - Software Developer | <i className="fas fa-bullseye"></i> Full-Stack Development Specialist | <i className="fas fa-bolt"></i> Node.js • React.js • MongoDB • PostgreSQL | <i className="fas fa-envelope"></i> msmithcit@gmail.com | <i className="fas fa-star"></i> Open to New Opportunities</p>
+        <p>
+          <i className="fas fa-briefcase"></i> Smith C - Software Developer |
+          <i className="fas fa-bolt"></i> Full-Stack Developer |
+          <i className="fas fa-code"></i> React • Node • PostgreSQL |
+          <i className="fas fa-envelope"></i> msmithcit@gmail.com
+        </p>
       </div>
 
       <main id="main-content" role="main">
-        {/* Hero Section */}
-        <section id="hero" aria-label="Hero section">
+
+        {/* Hero */}
+        <section ref={heroRef} id="hero" className="section cinematic">
+           <div className="cinematic-children">
           <HeroSection />
+          </div>
         </section>
 
-        {/* Experience and Education Sections */}
-        <div
-          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
-          ref={aboutRef}
-        >
-          <ExperienceTimeline />
-          <EducationSection />
-        </div>
+        {/* Experience */}
+        <section ref={experienceRef} className="section cinematic">
+          <Suspense fallback={<Loader />}>
+            <ExperienceTimeline />
+          </Suspense>
+        </section>
 
-        {/* Skills Section */}
-        <div
-          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
-          ref={skillsRef}
-        >
-          <SkillsSection />
-        </div>
+        {/* Education */}
+        <section ref={educationRef} className="section cinematic">
+          <Suspense fallback={<Loader />}>
+            <EducationSection />
+          </Suspense>
+        </section>
 
-        {/* Projects Section */}
-        <div
-          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
-          ref={projectsRef}
-        >
-          <ProjectsSection />
-        </div>
+        {/* Skills */}
+        <section ref={skillsRef} className="section cinematic">
+          <Suspense fallback={<Loader />}>
+            <SkillsSection />
+          </Suspense>
+        </section>
 
-        {/* Achievements Section */}
-        <div
-          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
-          ref={achievementsRef}
-        >
-          <AchievementsSection />
-        </div>
+        {/* Projects */}
+        <section ref={projectsRef} className="section cinematic">
+          <Suspense fallback={<Loader />}>
+            <ProjectsSection />
+          </Suspense>
+        </section>
 
-        {/* Contact Section */}
-        <div
-          className={`animate-on-scroll ${useReducedAnimations ? '' : 'fade-in-up'}`}
-          ref={contactRef}
-        >
-          <ContactSection />
-        </div>
+        {/* Achievements */}
+        <section ref={achievementsRef} className="section cinematic">
+          <Suspense fallback={<Loader />}>
+            <AchievementsSection />
+          </Suspense>
+        </section>
+
+        {/* Contact */}
+        <section ref={contactRef} className="section cinematic">
+          <Suspense fallback={<Loader />}>
+            <ContactSection />
+          </Suspense>
+        </section>
       </main>
 
-      {/* Scroll to Top Button */}
       <ScrollToTop />
 
-      
-      
-      <footer role="contentinfo" className="sr-only">
-        <p>© 2025 Smith C - Software Developer Portfolio</p>
+      <footer className="sr-only">
+        <p>© 2025 Smith C — Developer Portfolio</p>
       </footer>
     </div>
   );
 }
 
 export default App;
+
+/* Cinematic Base Styles */
